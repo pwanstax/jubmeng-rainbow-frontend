@@ -1,0 +1,34 @@
+@import "./utilities.scss";
+@import "./pages/HomePage.scss";
+
+* {
+  font-size: 48px;
+  font-family: $primary-font;
+  font-weight: 400;
+}
+
+body {
+  display: block;
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-size: var(--header1-fs);
+}
+h2 {
+  font-size: var(--header2-fs);
+}
+h3 {
+  font-size: var(--header3-fs);
+}
+p {
+  font-size: var(--paragraph1-fs);
+  margin: 0;
+  padding: 0;
+}
+i {
+  font-size: var(--icon-fs);
+}
