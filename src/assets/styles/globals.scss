@@ -1,8 +1,9 @@
 @import "./utilities.scss";
 @import "./pages/HomePage.scss";
+@import "./pages/ClinicPage.scss";
 
 * {
-  font-size: 48px;
+  font-size: 16px;
   font-family: $primary-font;
   font-weight: 400;
 }
@@ -16,6 +17,7 @@ html {
 }
 
 h1 {
+  all: unset;
   font-size: var(--header1-fs);
 }
 h2 {
