@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import ContentCard from "./ContentCard";
 
@@ -16,8 +16,7 @@ const ContentSlide = ({topic, icon, api}) => {
       }
     };
     fetchContent();
-  }, []);
-
+  }, [api]);
   return (
     <div className="content-slide-container">
       <h1>
