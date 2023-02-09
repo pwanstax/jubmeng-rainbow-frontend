@@ -1,11 +1,55 @@
 import React, {useState} from "react";
+import ClinicCard from "../components/ClinicCard";
 
 const ClinicPage = () => {
   const demo = {
     pet: {cat: false, dog: false, bird: true, lion: true},
     type: {clinic: true, place: false, service: false},
   };
+  const demo2 = [
+    {
+      name: "clinic1",
+      address: "testtest",
+      raing: 4,
+      ratingCount: 14,
+      image:
+        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
+    },
+    {
+      name: "clinic1",
+      address: "testtest",
+      raing: 4,
+      ratingCount: 14,
+      image:
+        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
+    },
+    {
+      name: "clinic1",
+      address: "testtest",
+      raing: 4,
+      ratingCount: 14,
+      image:
+        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
+    },
+    {
+      name: "clinic1",
+      address: "testtest",
+      raing: 4,
+      ratingCount: 14,
+      image:
+        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
+    },
+    {
+      name: "clinic1",
+      address: "testtest",
+      raing: 4,
+      ratingCount: 14,
+      image:
+        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
+    },
+  ];
   const [filterList, setFilterList] = useState(demo);
+  const [clinicList, setClinicList] = useState(demo2);
 
   return (
     <div className="clinic-page-container">
@@ -20,7 +64,7 @@ const ClinicPage = () => {
                 <>
                   <div className="category-box" key={`${key}${index}`}>
                     <h3>{key}</h3>
-                    
+
                     {Object.keys(filterList[key]).map((k, i) => {
                       return (
                         <label>
@@ -41,7 +85,11 @@ const ClinicPage = () => {
               );
             })}
           </div>
-          <div className="result-box">result</div>
+          <div className="result-box">
+            {clinicList.map((clinic, i) => {
+              return <ClinicCard clinic={clinic} />;
+            })}
+          </div>
         </div>
       </div>
     </div>
