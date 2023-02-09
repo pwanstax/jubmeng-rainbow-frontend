@@ -1,0 +1,26 @@
+.content-slide-container {
+  margin-top: 40px;
+  width: 70%;
+  @media (max-width: 1430px) {
+    width: 80%;
+  }
+  > h1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+    i {
+      font-size: 28px;
+      margin-right: 12px;
+      color: var(--primary-color);
+    }
+  }
+  .cards-wrap {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    @media (max-width: 1000px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
