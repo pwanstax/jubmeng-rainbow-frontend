@@ -1,4 +1,4 @@
-Frontend for Monkey D Car Rent
+Frontend for Jubmeng-Rainbow
 =======
 # Getting Started with Create React App
 
