@@ -6,7 +6,7 @@ const SlideBanner = () => {
       {/* <button className="left">&#10094;</button>
       <button className="right">&#10095;</button> */}
       <img
-        src={require("../assets/images/banner.png")}
+        src={require("../assets/images/banner-2.png")}
         alt="banner"
         className="banner"
       />

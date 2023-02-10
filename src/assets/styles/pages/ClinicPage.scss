@@ -1,0 +1,61 @@
+.clinic-page-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--grey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+.header {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 32px;
+    background-color: var(--white);
+    text-align: center;
+}
+.padding-box {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // background-color: lightgreen;
+}
+.content-box {
+    width: 100%;
+    @media (min-width: 1080px) {
+        width: 1080px;
+    }
+    @media (max-width: 1080px) {
+        width: 100%;
+    }
+    display: grid;
+    grid-template-columns: 1fr 75%;
+    gap: 24px;
+}
+.filter-box {
+    background-color: var(--white);
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: fit-content;
+}
+.result-box {
+    display: flex;
+    flex-direction: column;
+}
+.category-box {
+    border-width: 2px 0;
+    border-style: solid;
+    border-top: none;
+    border-color: var(--grey);
+    padding-bottom: 12px;
+    label {
+        display: block;
+        margin: 10px 0 0;
+    }
+}
