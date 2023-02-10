@@ -10,7 +10,7 @@ const ClinicPage = () => {
     {
       name: "clinic1",
       address: "testtest",
-      raing: 4,
+      rating: 4,
       ratingCount: 14,
       image:
         "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
@@ -18,7 +18,7 @@ const ClinicPage = () => {
     {
       name: "clinic1",
       address: "testtest",
-      raing: 4,
+      rating: 4,
       ratingCount: 14,
       image:
         "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
@@ -26,7 +26,7 @@ const ClinicPage = () => {
     {
       name: "clinic1",
       address: "testtest",
-      raing: 4,
+      rating: 4,
       ratingCount: 14,
       image:
         "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
@@ -34,7 +34,7 @@ const ClinicPage = () => {
     {
       name: "clinic1",
       address: "testtest",
-      raing: 4,
+      rating: 4,
       ratingCount: 14,
       image:
         "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
@@ -42,7 +42,7 @@ const ClinicPage = () => {
     {
       name: "clinic1",
       address: "testtest",
-      raing: 4,
+      rating: 4,
       ratingCount: 14,
       image:
         "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
