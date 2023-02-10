@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState} from "react";
 
 import SlideBanner from "../components/SlideBanner";
 import ServiceMenu from "../components/ServiceMenu";
@@ -8,7 +8,6 @@ import PetModalFilter from "../components/PetModalFilter";
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [petInputList, setPetInputList] = useState([]);
-  const ref = useRef(null);
 
   const contents = [
     {topic: "Now trending", icon: "paw", api: "clinic"},
@@ -20,24 +19,11 @@ const HomePage = () => {
     setShowModal(!showModal);
   };
 
-  const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setShowModal(false);
-    }
-  };
-  console.log(ref);
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
   return (
     <div className="homepage-container">
       <SlideBanner />
       <ServiceMenu handleClick={handleClick} />
       <PetModalFilter
-        ref={ref}
         showModal={showModal}
         setShowModal={setShowModal}
         petInputList={petInputList}

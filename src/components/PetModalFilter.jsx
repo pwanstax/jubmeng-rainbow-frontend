@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 
 const PetModalFilter = ({
   showModal,
   setShowModal,
   petInputList,
   setPetInputList,
-  ref,
 }) => {
   const toggleList = (array, item) => {
     // const index = array.indexOf(item);
@@ -16,7 +15,14 @@ const PetModalFilter = ({
     // }
     // setPetInputList(array);
   };
-  console.log(petInputList);
+  document.addEventListener("click", function (event) {
+    if (
+      !event.target.closest(".modal") &&
+      !event.target.closest(".service-button")
+    ) {
+      setShowModal(false);
+    }
+  });
 
   return (
     <>
@@ -25,7 +31,7 @@ const PetModalFilter = ({
           className="modal-container"
           style={{display: showModal ? "flex" : "none"}}
         >
-          <div ref={ref}>
+          <div className="modal">
             <h1>Type of pet ?!</h1>
             <div className="pet">
               <div onClick={() => toggleList(petInputList, "Dog")}>
