@@ -3,7 +3,10 @@ const ClinicCard = ({clinic}) => {
   return (
     <div className="clinic-card">
       <div className="pic">
-        {/* <img src={image} style={{width: "100%", objectFit: "fill"}} /> */}
+        <img
+          src="https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+          alt=""
+        />
       </div>
       <div className="description">
         <h2>{name}</h2>

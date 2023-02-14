@@ -1,13 +1,8 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
-const ContentCard = ({name, location_description, image, tags}) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/clinic");
-  };
 
+const ContentCard = ({name, location_description, image, tags}) => {
   return (
-    <div className="card-container" onClick={handleClick}>
+    <div className="card-container">
       <img src={image} alt="" className="front" />
       <div className="back">
         <h1>{name}</h1>

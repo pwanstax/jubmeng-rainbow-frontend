@@ -1,4 +1,5 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 const PetModalFilter = ({
   showModal,
@@ -14,6 +15,11 @@ const PetModalFilter = ({
     //   array.splice(index, 1);
     // }
     // setPetInputList(array);
+  };
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/clinic");
   };
   document.addEventListener("click", function (event) {
     if (
@@ -71,7 +77,7 @@ const PetModalFilter = ({
                 <i class="fa-solid fa-worm"></i>Worm
               </div>
             </div>
-            <button onClick={() => setShowModal(!showModal)}>Let's go!</button>
+            <button onClick={handleClick}>Let's go!</button>
           </div>
         </div>
       )}
