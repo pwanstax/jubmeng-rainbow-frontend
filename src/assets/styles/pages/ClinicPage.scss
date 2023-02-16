@@ -45,19 +45,20 @@
   @media (max-width: 1080px) {
     width: 100%;
   }
+  @media (max-width: 835px) {
+    display: flex;
+    flex-direction: column;
+  }
   display: grid;
   grid-template-columns: 1fr 75%;
   gap: 24px;
+  .serching-tools{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 }
-.filter-box {
-  background-color: var(--white);
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  height: fit-content;
-}
+
 .result-box {
   display: flex;
   flex-direction: column;

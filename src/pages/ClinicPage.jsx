@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import ClinicCard from "../components/ClinicCard";
+import FilterCheckBoxList from "../components/FilterCheckBoxList";
+import SortBy from "../components/SortBy";
 
 const ClinicPage = () => {
   const demo = {
@@ -48,8 +50,10 @@ const ClinicPage = () => {
         "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
     },
   ];
+  const sorts = ["Highest Rating", "Most Reviews", "A to Z", "Z to A"];
   const [filterList, setFilterList] = useState(demo);
   const [clinicList, setClinicList] = useState(demo2);
+  const [sortBy, setSortBy] = useState();
 
   return (
     <div className="clinic-page-container">
@@ -58,32 +62,12 @@ const ClinicPage = () => {
       </div>
       <div className="padding-box">
         <div className="content-box">
-          <div className="filter-box">
-            {Object.keys(filterList).map((key, index) => {
-              return (
-                <>
-                  <div className="category-box" key={`${key}${index}`}>
-                    <h3>{key}</h3>
-
-                    {Object.keys(filterList[key]).map((k, i) => {
-                      return (
-                        <label>
-                          <input
-                            type="checkbox"
-                            id={`${key}${k}${i}`}
-                            name={k}
-                            value={k}
-                            checked={filterList[key][k]}
-                            //   onChange={handleOnChange}
-                          />
-                          {k}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </>
-              );
-            })}
+          <div className="serching-tools">
+            <SortBy sorts={sorts} setSortBy={setSortBy} />
+            <FilterCheckBoxList
+              filterList={filterList}
+              setFilterList={setFilterList}
+            />
           </div>
           <div className="result-box">
             {clinicList.map((clinic, i) => {

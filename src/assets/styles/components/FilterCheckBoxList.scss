@@ -1,0 +1,15 @@
+.filter-checkbox-list {
+    background-color: var(--white);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    height: fit-content;
+    @media (max-width: 835px) {
+        flex-direction: row;
+        justify-content: space-around;
+        // flex-basis: 50%;
+        
+    }
+  }
