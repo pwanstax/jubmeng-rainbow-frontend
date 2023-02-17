@@ -1,19 +1,20 @@
 @import "./utilities.scss";
+
 @import "./pages/HomePage.scss";
+@import "./pages/ServicesPage.scss";
+@import "./pages/SigninPage.scss";
+
 @import "./components/Navbar.scss";
 @import "./components/SlideBanner.scss";
 @import "./components/Footer.scss";
-@import "./pages/HomePage.scss";
 @import "./components/SigninBox.scss";
-@import "./pages/SigninPage.scss";
 @import "./components/ContactFooter.scss";
 @import "./components/SeoFooter.scss";
 @import "./components/ServiceMenu.scss";
 @import "./components/ContentSlide.scss";
-@import "./components/HomeProductCard.scss";
+@import "./components/HomeServiceCard.scss";
 @import "./components/PetModalFilter.scss";
-@import "./pages/ClinicPage.scss";
-@import "./components/ClinicCard.scss";
+@import "./components/ServiceCard.scss";
 
 :root {
   font-size: 16px;

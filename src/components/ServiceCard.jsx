@@ -1,4 +1,4 @@
-const ProductCard = ({clinic}) => {
+const ServiceCard = ({clinic}) => {
   const {name, address, rating, ratingCount, image} = clinic;
   return (
     <div className="clinic-card">
@@ -29,4 +29,4 @@ const ProductCard = ({clinic}) => {
     </div>
   );
 };
-export default ProductCard;
+export default ServiceCard;
