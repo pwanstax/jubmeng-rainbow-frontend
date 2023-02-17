@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import ServiceCard from "../components/ServiceCard";
+import ProductCard from "../components/ProductCard";
 
-const ServicesPage = () => {
+const ProductsPage = () => {
   const demo = {
     pet: {cat: false, dog: false, bird: true, lion: true},
     type: {clinic: true, place: false, service: false},
@@ -87,7 +87,7 @@ const ServicesPage = () => {
           </div>
           <div className="result-box">
             {clinicList.map((clinic, i) => {
-              return <ServiceCard clinic={clinic} />;
+              return <ProductCard clinic={clinic} />;
             })}
           </div>
         </div>
@@ -96,4 +96,4 @@ const ServicesPage = () => {
   );
 };
 
-export default ServicesPage;
+export default ProductsPage;

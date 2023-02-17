@@ -1,8 +1,9 @@
 @import "./utilities.scss";
 
 @import "./pages/HomePage.scss";
-@import "./pages/ServicesPage.scss";
+@import "./pages/ProductsPage.scss";
 @import "./pages/SigninPage.scss";
+@import "./pages/ResetPasswordPage.scss";
 
 @import "./components/Navbar.scss";
 @import "./components/SlideBanner.scss";
@@ -10,16 +11,16 @@
 @import "./components/SigninBox.scss";
 @import "./components/ContactFooter.scss";
 @import "./components/SeoFooter.scss";
-@import "./components/ServiceMenu.scss";
+@import "./components/ProductMenu.scss";
 @import "./components/ContentSlide.scss";
-@import "./components/HomeServiceCard.scss";
+@import "./components/HomeProductCard.scss";
 @import "./components/PetModalFilter.scss";
-@import "./components/ServiceCard.scss";
+@import "./components/ProductCard.scss";
 
 :root {
   font-size: 16px;
   font-weight: 400;
-  font-family: $primary-font;
+  font-family: $primary-font !important;
 }
 
 body {
@@ -50,4 +51,7 @@ p {
   font-size: var(--paragraph-fs);
   margin: 0;
   padding: 0;
+}
+input {
+  font-family: "Work Sans", sans-serif;
 }

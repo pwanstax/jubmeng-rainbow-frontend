@@ -27,35 +27,32 @@
       align-items: center;
       gap: 14px;
       .content {
-        color: var(--primary-color);
-        font-size: var(--button3-fs);
+        color: var(--black-cl);
+        font-size: var(--paragraph-fs);
         font-weight: 500;
         text-decoration: none;
         background: none;
         border: 0px;
         padding: 12px 20px;
         white-space: nowrap;
-        // margin: 0 4px;
-        border: 1px solid transparent !important;
         border-radius: 8px;
 
         transition: border 0.15s ease-in-out;
 
         &:hover {
-          border: 1px solid var(--primary-color) !important;
-          border-radius: 8px;
+          color: var(--primary-cl);
 
           cursor: pointer;
         }
       }
-      .profile {
-        border: 1px solid var(--primary-color) !important;
+      .signup {
+        border: 2px solid var(--primary-cl) !important;
         border-radius: 8px;
         transition: background-color 0.15s ease-in-out;
 
         &:hover {
-          color: var(--contrast-color);
-          background-color: var(--primary-color);
+          color: var(--white-cl);
+          background-color: var(--primary-cl);
           border-radius: 8px !important;
         }
       }

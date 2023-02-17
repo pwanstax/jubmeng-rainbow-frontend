@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import SlideBanner from "../components/SlideBanner";
-import ServiceMenu from "../components/ServiceMenu";
+import ProductMenu from "../components/ProductMenu";
 import ContentSlide from "../components/ContentSlide";
 import PetModalFilter from "../components/PetModalFilter";
 
@@ -22,7 +22,7 @@ const HomePage = () => {
   return (
     <div className="homepage-container">
       <SlideBanner />
-      <ServiceMenu handleClick={handleClick} />
+      <ProductMenu handleClick={handleClick} />
       <PetModalFilter
         showModal={showModal}
         setShowModal={setShowModal}

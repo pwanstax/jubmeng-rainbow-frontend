@@ -1,26 +1,26 @@
 .content-slide-container {
-  margin-top: 40px;
-  width: 70%;
-  @media (max-width: 1430px) {
-    width: 80%;
-  }
+  margin-top: 60px;
   > h1 {
     display: flex;
     align-items: center;
     margin-bottom: 28px;
+    font-weight: 400;
     i {
-      font-size: 28px;
+      font-size: var(--header1-fs);
       margin-right: 12px;
-      color: var(--primary-color);
+      color: var(--primary-cl);
     }
   }
   .cards-wrap {
     display: grid;
     gap: 18px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 280px);
     width: 100%;
+    @media (max-width: 1250px) {
+      grid-template-columns: repeat(3, 280px);
+    }
     @media (max-width: 1000px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 280px);
     }
   }
 }
