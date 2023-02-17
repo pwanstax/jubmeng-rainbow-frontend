@@ -1,6 +1,6 @@
 import React from "react";
 
-const HomeProductCard = ({name, location_description, image, tags}) => {
+const HomeServiceCard = ({name, location_description, image, tags}) => {
   return (
     <div className="card-container">
       <img src={image} alt="" className="front" />
@@ -19,4 +19,4 @@ const HomeProductCard = ({name, location_description, image, tags}) => {
   );
 };
 
-export default HomeProductCard;
+export default HomeServiceCard;
