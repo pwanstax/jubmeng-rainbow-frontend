@@ -1,54 +1,42 @@
-// @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  // --primary-font: "Inter", sans-serif;
   --primary-font: "Work Sans", sans-serif;
 
-  --primary-color: #a83e54;
-  --secondary-color: #4a60a1; //
-  --contrast-color: #fbf5f0;
-  --caution-color: #b71c1c; //
-  --placeholder-color: #889099; //
-  --arrow-color: #cfd3d6; //
-  --p-color: #6d737a; //
-  --secondary-background: #f9f9f9; //
-  --test-color: #c8828a;
-
-  --header1-fs: 28px;
-  --header2-fs: 24px;
-  --header3-fs: 18px;
-  --paragraph1-fs: 16px;
-  --paragraph2-fs: 14px;
-  --label-fs: 16px;
-  --button1-fs: 20px;
-  --button2-fs: 16px;
-  --button3-fs: 14px;
-  --icon-fs: 16px;
-  --searchbox-fs: 14px;
-  //   --primary-color: black;
-  //   --secondary-color: #4a60a1;
-  //   --contrast-color: white;
-  //   --caution-color: #b71c1c;
-  //   --placeholder-color: #889099;
-  //   --arrow-color: #cfd3d6;
-  //   --p-color: #6d737a;
-  --red: #a83e54;
-  --white: white;
-  --grey: #f2f2f2;
-
-  // --header1-fs: 44px;
-  // --header2-fs: 32px;
-  // --header3-fs: 18px;
-  //   --paragraph1-fs: 16px;
-  //   --paragraph2-fs: 14px;
-  //   --button1-fs: 20px;
-  //   --button2-fs: 16px;
-  //   --button3-fs: 14px;
-  //   --icon-fs: 16px;
-  //   --searchbox-fs: 14px;
+  --header1-fs: 1.75rem;
+  --header2-fs: 1.5rem;
+  --header3-fs: 1.25rem;
+  --header4-fs: 1rem;
+  --paragraph-fs: 0.875rem;
 
   --navbar-height: 78px;
+
+  --primary-cl: #a83e54;
+  --alert-red: #d64242;
+  --alert-yellow: #fa9f47;
+  --alert-green: #0e8e19;
+
+  --red-100: #cd808f;
+  --red-200: #c46f80;
+  --red-300: #ba5f72;
+  --red-400: #b14e63;
+  --red-500: #a83e54;
+  --red-600: #95374b;
+  --red-700: #833041;
+  --red-800: #702a38;
+  --red-900: #5e232e;
+
+  --white-cl: #ffffff;
+
+  --grey-100: #f1f1f1;
+  --grey-200: #e3e3e3;
+  --grey-300: #d6d6d6;
+  --grey-400: #c8c8c8;
+  --grey-500: #bababa;
+  --grey-600: #959595;
+  --grey-700: #707070;
+  --grey-800: #4a4a4a;
+  --grey-900: #252525;
 }
 
 $primary-font: var(--primary-font);

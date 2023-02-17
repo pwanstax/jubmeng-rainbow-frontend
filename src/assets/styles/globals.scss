@@ -10,15 +10,15 @@
 @import "./components/SeoFooter.scss";
 @import "./components/ServiceMenu.scss";
 @import "./components/ContentSlide.scss";
-@import "./components/ContentCard.scss";
+@import "./components/HomeProductCard.scss";
 @import "./components/PetModalFilter.scss";
 @import "./pages/ClinicPage.scss";
 @import "./components/ClinicCard.scss";
 
-* {
+:root {
   font-size: 16px;
-  font-family: $primary-font;
   font-weight: 400;
+  font-family: $primary-font;
 }
 
 body {
@@ -31,25 +31,22 @@ html {
 
 h1 {
   font-size: var(--header1-fs);
-  margin-bottom: 0;
+  margin: 0;
 }
 h2 {
   font-size: var(--header2-fs);
+  margin: 0;
 }
 h3 {
   font-size: var(--header3-fs);
+  margin: 0;
+}
+h4 {
+  font-size: var(--header4-fs);
+  margin: 0;
 }
 p {
-  font-size: var(--paragraph1-fs);
+  font-size: var(--paragraph-fs);
   margin: 0;
   padding: 0;
-}
-i {
-  font-size: var(--icon-fs);
-}
-label {
-  font-size: var(--label-fs);
-}
-input {
-  padding: 11px 15px;
 }

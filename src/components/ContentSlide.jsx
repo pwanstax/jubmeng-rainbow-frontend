@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import ContentCard from "./ContentCard";
+import HomeProductCard from "./HomeProductCard";
 
 const ContentSlide = ({topic, icon, api}) => {
   const [contents, setContents] = useState([]);
@@ -26,7 +26,7 @@ const ContentSlide = ({topic, icon, api}) => {
       <div className="cards-wrap">
         {contents.map((content) => {
           return (
-            <ContentCard
+            <HomeProductCard
               name={content.name}
               location_description={content.location_description}
               tags={content.tags}
