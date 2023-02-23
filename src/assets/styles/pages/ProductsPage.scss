@@ -91,6 +91,7 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+        margin-bottom: 1rem;
         .search {
           display: flex;
           align-items: center;
@@ -133,12 +134,12 @@
         }
       }
       .tags-chip-container {
-        margin-top: 1rem;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 0.5rem;
         button.tag-chip {
+          margin-right: 0.5rem;
+          margin-bottom: 0.5rem;
           display: flex;
           align-items: center;
           border: 1px solid var(--grey-300);
@@ -153,7 +154,6 @@
         }
       }
       .result-container {
-        margin-top: 1rem;
         display: flex;
         flex-direction: column;
         gap: 2rem;
