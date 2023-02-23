@@ -1,0 +1,33 @@
+.product-detail-summary-box{
+    padding: 1.5rem;
+    border: 1px solid var(--grey-500);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    h4{
+        font-weight: 400;
+    }
+    .line{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;    
+        
+    }
+    .social-networks{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .value{
+        display: flex;
+        flex-direction: row;
+        i{
+            color: var(--primary-cl);
+            min-width: 34px;            
+        }
+        .fa-square-instagram, .fa-square-facebook, .fa-square-twitter{
+            font-size: 18px;  
+        }
+    }
+}

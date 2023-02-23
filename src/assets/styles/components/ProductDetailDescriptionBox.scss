@@ -1,0 +1,49 @@
+.product-detail-description-box{
+    padding: 1.5rem;
+    gap: 3rem;
+    border: 1px solid var(--grey-500);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    //flex-wrap: wrap;
+    .container{
+        display: flex;
+        flex-direction: row;
+        i{
+            color: var(--primary-cl);
+            min-width: 34px;
+        }
+    }
+    .tags{
+        max-width: 30%;
+        .tag{
+            padding-bottom: 5px;
+            .tag-name{
+                width: max-content;
+            }
+        }
+        
+    }
+    .open-hours{
+        .each-day{
+            // display: grid;
+            // grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            flex-direction: row;
+            .day-name{
+                width: 120px;
+            }
+            .periods{
+                flex-direction: column;
+                white-space: nowrap;
+            }
+        }
+    }
+    .detail-description{
+        min-width: 30%;
+        .detail{
+            padding: 0;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+.product-detail-page-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 78px;
+  margin-bottom: 64px;
+  // padding-left: 100px;
+  // padding-right: 100px;
+  gap: 50px;
+ .line-under-nav-bar{
+    //position: absolute;
+    //left: 0px;
+    width: 100%;
+    height: 9px;
+    border: 0px;
+    background-color: var(--primary-cl);
+  }
+  .details{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    .content-wrap {
+      //padding: 50px 0;
+      display: grid;
+      grid-template-columns: 60% 40%;
+      justify-content: center;
+    }
+  }
+}

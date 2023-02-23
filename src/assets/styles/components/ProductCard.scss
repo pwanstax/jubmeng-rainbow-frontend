@@ -29,15 +29,6 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        .rating-star {
-          display: flex;
-          align-items: center;
-          gap: 0.25rem;
-          i {
-            width: 20px;
-            color: var(--primary-cl);
-          }
-        }
         h4 {
           color: var(--grey-700);
           font-weight: initial;

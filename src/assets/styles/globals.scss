@@ -4,6 +4,7 @@
 @import "./pages/ProductsPage.scss";
 @import "./pages/SigninPage.scss";
 @import "./pages/ResetPasswordPage.scss";
+@import "./pages/ProductDetailPage.scss";
 
 @import "./components/Navbar.scss";
 @import "./components/SlideBanner.scss";
@@ -16,7 +17,13 @@
 @import "./components/HomeProductCard.scss";
 @import "./components/PetModalFilter.scss";
 @import "./components/ProductCard.scss";
-
+@import "./components/ProductGallery.scss";
+@import "./components/ProductDetailSummaryBox.scss";
+@import "./components/ProductDetailDescriptionBox.scss";
+@import "./components/ProductDetailPriceBox.scss";
+@import "./components/ProductDetailRatingBox.scss";
+@import "./components/RenderStars.scss";
+@import "./components/FindOnMap.scss";
 :root {
   font-size: 16px;
   font-weight: 400;
