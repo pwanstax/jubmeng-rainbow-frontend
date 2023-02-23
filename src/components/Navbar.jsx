@@ -1,6 +1,74 @@
+import axios from "axios";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {checkLogin} from "../utils/auth";
+import useOutsideClick from "../hooks/useOutsideCllick";
 
 const Navbar = () => {
+  const [navbarInfo, setNavbarInfo] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setOpenDropdown(!openDropdown);
+  };
+
+  const ref = useOutsideClick(() => setOpenDropdown(false));
+
+  const handleLogout = async () => {
+    sessionStorage.clear();
+    const res = await axios.post(
+      `http://localhost:8080/user/logout`,
+      {
+        cookie_name: "auth",
+      },
+      {
+        withCredentials: true,
+      }
+    ); // change path to backend service
+
+    alert(res.data);
+    window.location.assign("/");
+  };
+
+  const handleRegisterSeller = async () => {
+    const user_id = sessionStorage.getItem("user_id");
+    try {
+      await axios.patch(
+        `http://localhost:8080/user/setseller/${user_id}`,
+        {
+          cookie_name: "auth",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchNavbar = async () => {
+      const result = await checkLogin();
+      if (result) {
+        try {
+          const res = await axios.get(`http://localhost:8080/user/navbar`, {
+            headers: {
+              user_id: sessionStorage.getItem("user_id"),
+            },
+            withCredentials: true,
+          }); // change path to backend service
+          setNavbarInfo(res.data.user);
+          console.log(res.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    fetchNavbar();
+  }, []);
+
   return (
     <div className="navbar-container">
       <img
@@ -20,12 +88,64 @@ const Navbar = () => {
           <Link to="/about" className="content">
             About Us
           </Link>
-          <Link to="/signin" className="content">
-            Sign in
-          </Link>
-          <Link to="/signup" className="signup content">
-            Create Account
-          </Link>
+          {navbarInfo ? (
+            <>
+              <div className="profile" ref={ref}>
+                <img
+                  src={navbarInfo.image}
+                  alt=""
+                  style={openDropdown ? {opacity: 0.5} : {}}
+                  onClick={toggleDropdown}
+                />
+                {openDropdown && (
+                  <div className="dropdown">
+                    <ul role="menu" className="menu">
+                      <li className="menu-item">
+                        <Link
+                          to="/profile"
+                          className="link"
+                          onClick={toggleDropdown}
+                        >
+                          My profile
+                        </Link>
+                      </li>
+                      {/* <li onClick={handleMyBooking} className="menu-item">
+                        My booking
+                      </li> */}
+
+                      {navbarInfo.isLessor ? (
+                        <li
+                          className="menu-item"
+                          // onClick={handleAddCar}
+                        >
+                          Add your store
+                        </li>
+                      ) : (
+                        <li
+                          onClick={handleRegisterSeller}
+                          className="menu-item"
+                        >
+                          Be a seller
+                        </li>
+                      )}
+                      <li className="menu-item" onClick={handleLogout}>
+                        Logout
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/signin" className="content">
+                Sign in
+              </Link>
+              <Link to="/signup" className="signup content">
+                Create Account
+              </Link>
+            </>
+          )}
           <i className="fa-regular fa-bell"></i>
         </nav>
       </div>
