@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import ProductCard from "../components/ProductCard";
-
+import FindOnMap from "../components/FindOnMap";
 const ProductsPage = () => {
-
   const services = [
     "Veterinary",
     "Outpatient Service",
@@ -88,20 +87,20 @@ const ProductsPage = () => {
     );
   };
 
-  const FindOnMap = () => {
-    return (
-      <div className="filter-box">
-        <h3>Find on map</h3>
-        <div className="map-container">
-          <button className="view-map-button">
-            <i class="fa-solid fa-location-dot"></i>
-            <h4>View</h4>
-          </button>
-          <img id="map" src="https://static.tacdn.com/img2/maps/img_map.png" />
-        </div>
-      </div>
-    );
-  };
+  // const FindOnMap = () => {
+  //   return (
+  //     <div className="filter-box">
+  //       <h3>Find on map</h3>
+  //       <div className="map-container">
+  //         <button className="view-map-button">
+  //           <i class="fa-solid fa-location-dot"></i>
+  //           <h4>View</h4>
+  //         </button>
+  //         <img id="map" src="https://static.tacdn.com/img2/maps/img_map.png" />
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   const FilterBox = ({label, list, onChange, showMore, setShowMore}) => {
     return (
@@ -167,7 +166,10 @@ const ProductsPage = () => {
       </div>
       <div className="content-container">
         <div className="filter-container">
-          <FindOnMap />
+          <div className="filter-box">
+            <h3>Find on map</h3>
+            <FindOnMap />
+          </div>
           <FilterBox
             label={"Type of pets"}
             list={petsSelected}

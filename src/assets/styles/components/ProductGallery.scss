@@ -1,0 +1,51 @@
+$gallery-gap: 12px;
+$gallery-height: calc(37vw - 100px);
+.product-gallery {
+  margin-right: 25px;
+  border: 1px solid var(--grey-500);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  > div {
+    width: 50vw;
+    height: $gallery-height;
+    display: grid;
+    gap: $gallery-gap;
+    grid-template-columns: calc(75% - calc($gallery-gap / 2)) calc(
+        25% - calc($gallery-gap / 2)
+      );
+
+    .main-view {
+      width: 100%;
+      display: flex;
+      img {
+        width: 100%;
+        height: 100%;
+        max-height: $gallery-height;
+        object-fit: contain;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .other-view {
+      overflow: scroll;
+      display: grid;
+      gap: 12px;
+      grid-template-rows: repeat(3, auto);
+      > div {
+        width: 100%;
+        height: 100%;
+        &:hover {
+          cursor: pointer;
+          opacity: 0.9;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
