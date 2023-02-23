@@ -4,22 +4,25 @@ const ProductCard = ({clinic}) => {
   const {
     name,
     address,
-    rating,
-    ratingCount,
-    services,
+    province,
+    amphure,
+    tambon,
+    rating = 5,
+    review_counts = 0,
+    tags,
     price = 3,
     distance = 10,
     image = "https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   } = clinic;
-  
+
   const [onHoverTags, setOnHoverTags] = useState(false);
 
-  const TagPopup = ({services, onHoverTags}) => {
+  const TagPopup = ({tags, onHoverTags}) => {
     return (
       <div className="tag-popup-box" style={{opacity: onHoverTags ? "1" : "0"}}>
-        <h4>All services:</h4>
+        <h4>All tags:</h4>
         <div className="tag-popup-grid">
-          {services.map((service, i) => {
+          {tags.map((service, i) => {
             return (
               <div className="tag-popup" key={`${service}${i}`}>
                 <h4>{` ·`}</h4>
@@ -38,11 +41,13 @@ const ProductCard = ({clinic}) => {
     return (
       <>
         {[...Array(fullStars)].map((v, i) => (
-          <i className="fa-solid fa-star fa-lg" key={`fullstar${i}`} ></i>
+          <i className="fa-solid fa-star fa-lg" key={`fullstar${i}`}></i>
         ))}
-        {halfStar === 1 && <i className="fa-solid fa-star-half-stroke fa-lg"></i>}
+        {halfStar === 1 && (
+          <i className="fa-solid fa-star-half-stroke fa-lg"></i>
+        )}
         {[...Array(5 - fullStars - halfStar)].map((v, i) => (
-          <i className="fa-regular fa-star fa-lg" key={`emptystar${i}`} ></i>
+          <i className="fa-regular fa-star fa-lg" key={`emptystar${i}`}></i>
         ))}
       </>
     );
@@ -50,51 +55,46 @@ const ProductCard = ({clinic}) => {
 
   return (
     <div className="product-card">
-      <img
-        src={image}
-        alt=""
-      />
+      <img src={image} alt="" />
       <div className="product-info">
-        <div className="title">
-          <h2>{name}</h2>
-          <h4>·</h4>
-          <h4>{address}</h4>
-        </div>
         <div className="description">
-          <div className="rating-star">
-            <RenderStars rating={rating} />
+          <h2>{name}</h2>
+          <div className="line">
+            <div className="rating-star">
+              <RenderStars rating={rating} />
+            </div>
+            <h4>{`(${review_counts})`}</h4>
+            <h4>·</h4>
+            <h4 style={{color: "green"}}>{`Open`}</h4>
+            <h4>{`Until 10PM`}</h4>
           </div>
-          <h4>{`(${ratingCount})`}</h4>
-          <h4>·</h4>
-          <h4 style={{color: "green"}}>{`Open`}</h4>
-          <h4>{`Until 10PM`}</h4>
-          <h4>·</h4>
-          <h4>{`${distance}km`}</h4>
-          <h4>·</h4>
-          <h4>{"$".repeat(price)}</h4>
+          <div className="line">
+            <h4>{`${province}, ${amphure}, ${tambon}`}</h4>
+            <h4>·</h4>
+            <h4>{`${distance}km`}</h4>
+            <h4>·</h4>
+            <h4>{"$".repeat(price)}</h4>
+          </div>
         </div>
         <hr />
         <div className="tag-container">
-          {services &&
-            services.map((service, i) => {
+          {tags &&
+            tags.map((service, i) => {
               if (i < 3) {
                 return (
                   <div className="tag" key={`${name}${service}${i}`}>
                     {/* <i class="fa-regular fa-star fa-lg"></i> */}
                     <h4>{`${service}`}</h4>
-                    {i == 2 && services.length > 3 && (
+                    {i == 2 && tags.length > 3 && (
                       <>
                         <h4
                           className="additional-service"
                           onMouseOver={() => setOnHoverTags(true)}
                           onMouseLeave={() => setOnHoverTags(false)}
-                        >{`+ ${services.length - 3} services`}</h4>
-                        {services && services.length > 3 && (
+                        >{`+ ${tags.length - 3} tags`}</h4>
+                        {tags && tags.length > 3 && (
                           <div className="relative-container">
-                            <TagPopup
-                              services={services}
-                              onHoverTags={onHoverTags}
-                            />
+                            <TagPopup tags={tags} onHoverTags={onHoverTags} />
                           </div>
                         )}
                       </>

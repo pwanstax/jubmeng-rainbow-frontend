@@ -1,49 +1,8 @@
-import React, {useState} from "react";
+import axios from "axios";
+import React, {useEffect, useState} from "react";
 import ProductCard from "../components/ProductCard";
 
 const ProductsPage = () => {
-  const demo2 = [
-    {
-      name: "Cat Clinic1",
-      address: "Bangsuan, Mueng, Chon Buri",
-      rating: 4,
-      ratingCount: 14,
-      services: [
-        "Vaccination",
-        "Health Examination",
-        "Spay & Neuter",
-        "Spay & Neuter",
-      ],
-      image:
-        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
-      price: 3,
-    },
-    {
-      name: "clinic1",
-      address: "Bangsuan, Mueng, Chon Buri",
-      rating: 2.7,
-      ratingCount: 14,
-      services: [
-        "Vaccination",
-        "Health Examination",
-        "Vaccination",
-        "Vaccination",
-        "Vaccination",
-        "Vaccination",
-      ],
-      price: 3,
-    },
-    {
-      name: "clinic2",
-      address: "Bangsuan, Mueng, Chon Buri",
-      rating: 0,
-      ratingCount: 14,
-      services: ["Vaccination", "Health Examination", "Spay & Neuter"],
-      image:
-        "https://www.houstonansweringservices.com/site/wp-content/uploads/2018/08/veterinarian.jpg",
-      price: 3,
-    },
-  ];
 
   const services = [
     "Veterinary",
@@ -75,7 +34,7 @@ const ProductsPage = () => {
 
   const animalsDict = animals.reduce((a, v) => ({...a, [v]: false}), {});
 
-  const [clinicList, setClinicList] = useState(demo2);
+  const [clinicList, setClinicList] = useState([]);
   const [sortBy, setSortby] = useState("Highest rating");
 
   const [petsSelected, setPetSelected] = useState(animalsDict);
@@ -187,6 +146,20 @@ const ProductsPage = () => {
     );
   };
 
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/products/clinic`);
+        console.log(res.data);
+        setClinicList(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchContent();
+    return () => {};
+  }, []);
+
   return (
     <div className="product-page-container">
       <div className="header">
@@ -216,7 +189,9 @@ const ProductsPage = () => {
               <i className="fa-solid fa-magnifying-glass"></i>
               <input type="text" placeholder="Text search" />
             </div>
-            <div className="default-filter" onClick={handleDefaultFilter}>Set default filter</div>
+            <div className="default-filter" onClick={handleDefaultFilter}>
+              Set default filter
+            </div>
             <label className="sort-container">
               Sort by :
               <select value={sortBy} onChange={handleOnChangeSort}>
