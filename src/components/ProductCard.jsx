@@ -1,5 +1,5 @@
 import {useState} from "react";
-import RenderStars from "./RenderStars";
+import RenderStars from "../utils/RenderStars";
 const ProductCard = ({clinic}) => {
   const {
     name,

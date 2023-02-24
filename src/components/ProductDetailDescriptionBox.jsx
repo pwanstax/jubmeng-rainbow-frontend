@@ -16,7 +16,6 @@ const ProductDetailDescriptionBox = ({open_hours, tags, description}) => {
         <i class="fa-solid fa-clock"></i>
         <div className="open-hours">
           {open_hours.map((value) => {
-            console.log(value);
             return (
               <div className="each-day">
                 <div className="day-name">{days[value.day]}</div>

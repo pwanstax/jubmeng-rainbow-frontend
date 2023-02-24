@@ -1,5 +1,5 @@
 import React from "react";
-import RenderStars from "./RenderStars";
+import RenderStars from "../utils/RenderStars";
 
 const ProductDetailRatingBox = ({reviews}) => {
   const filters = ["Highest Rating", "Lowest Rating", "Oldest", "Newest"];

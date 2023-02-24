@@ -1,6 +1,6 @@
 import React from "react";
-import FindOnMap from "./FindOnMap";
-import RenderStars from "./RenderStars";
+import FindOnMap from "../utils/FindOnMap";
+import RenderStars from "../utils/RenderStars";
 
 const ProductDetailSummaryBox = ({detail}) => {
   return (

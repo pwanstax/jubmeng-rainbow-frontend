@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import ProductCard from "../components/ProductCard";
-import FindOnMap from "../components/FindOnMap";
+import FindOnMap from "../utils/FindOnMap";
 const ProductsPage = () => {
   const services = [
     "Veterinary",
