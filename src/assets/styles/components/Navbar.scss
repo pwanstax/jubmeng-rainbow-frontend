@@ -52,6 +52,7 @@
           height: 100%;
           object-fit: cover;
           border-radius: 50%;
+          background-color: var(--white-cl);
           &:hover {
             cursor: pointer;
           }
@@ -63,6 +64,7 @@
           width: 200px;
           border-radius: 8px;
           background-color: var(--white-cl);
+          box-shadow: 0 2px 54px 0 rgba(0,0,0,.1);;
           ::after{
               content: " ";
               position: absolute;

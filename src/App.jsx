@@ -9,6 +9,7 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ResetPasswordPage from "./components/ResetPasswordPage";
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
           <Route path="/clinic" element={<ProductsPage />} />
           <Route path="/clinic/:id" element={<ProductDetailPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
         <Footer />
