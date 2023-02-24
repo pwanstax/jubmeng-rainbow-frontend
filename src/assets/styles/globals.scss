@@ -5,6 +5,7 @@
 @import "./pages/SigninPage.scss";
 @import "./pages/ResetPasswordPage.scss";
 @import "./pages/ProductDetailPage.scss";
+@import "./pages/ProfilePage.scss";
 
 @import "./components/Navbar.scss";
 @import "./components/SlideBanner.scss";
@@ -24,6 +25,8 @@
 @import "./components/ProductDetailRatingBox.scss";
 @import "./components/RenderStars.scss";
 @import "./components/FindOnMap.scss";
+@import "./components/Profile.scss";
+
 :root {
   font-size: 16px;
   font-weight: 400;
