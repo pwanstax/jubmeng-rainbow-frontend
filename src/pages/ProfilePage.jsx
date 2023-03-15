@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 const ProfilePage = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-
+  const [imageFile, setImageFile] = useState(null);
   const toggleIsEdit = () => {
     setIsEdit(!isEdit);
   };
@@ -20,16 +20,24 @@ const ProfilePage = () => {
   const submitUserInfo = async () => {
     try {
       const id = sessionStorage.getItem("user_id");
-      const res = await axios.patch(
-        `http://localhost:8080/user/info`,
-        {
-          id: id,
-          ...userInfo,
+      const formData = new FormData();
+      formData.append("id", id);
+
+      for (const [key, value] of Object.entries(userInfo)) {
+        formData.append(key, value);
+      }
+
+      if (imageFile) {
+        console.log("in");
+        formData.append("image", imageFile);
+      }
+
+      await axios.patch(`http://localhost:8080/user/info`, formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          withCredentials: true,
-        }
-      );
+      });
       toggleIsEdit();
     } catch (error) {
       console.log(error);
@@ -52,6 +60,24 @@ const ProfilePage = () => {
     window.location.assign("/");
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setUserInfo({
+        ...userInfo,
+        image: reader.result,
+      });
+    };
+
+    if (file) {
+      setImageFile(file); // Store the file object
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -65,7 +91,6 @@ const ProfilePage = () => {
             withCredentials: true,
           }
         );
-        console.log(res.data);
         const filtered = Object.fromEntries(
           Object.entries(res.data).filter(
             ([key, val]) => typeof val === "string"
@@ -86,6 +111,15 @@ const ProfilePage = () => {
         <div className="content">
           <div className="profile card">
             <img className="profile-picture" src={userInfo.image} alt="" />
+            {isEdit && (
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={handleImageChange}
+                accept="image/*"
+              />
+            )}
             <h2>{`${userInfo.firstName}`}</h2>
             <h2>{`${userInfo.lastName}`}</h2>
             <h4>{`@${userInfo.username}`}</h4>
@@ -108,14 +142,14 @@ const ProfilePage = () => {
             <div className="info-container">
               {userInfo &&
                 Object.keys(userInfo).map((key, index) => {
-                  return (
-                    <div className="text" key={`${key}`}>
+                  return key !== "image" ? (
+                    <div className="text" key={index}>
                       <div className="label">{key}</div>
                       <div className="value">
                         {isEdit ? (
                           <input
-                            id={`${key}`}
-                            name={`${key}`}
+                            id={key}
+                            name={key}
                             className=""
                             value={userInfo[key]}
                             onChange={handleChange}
@@ -130,6 +164,8 @@ const ProfilePage = () => {
                         )}
                       </div>
                     </div>
+                  ) : (
+                    <div key={index}></div>
                   );
                 })}
             </div>

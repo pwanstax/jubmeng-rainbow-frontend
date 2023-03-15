@@ -43,22 +43,27 @@ html {
 
 h1 {
   font-size: var(--header1-fs);
+  font-weight: 500 !important;
   margin: 0;
 }
 h2 {
   font-size: var(--header2-fs);
+  font-weight: 500 !important;
   margin: 0;
 }
 h3 {
   font-size: var(--header3-fs);
+  font-weight: 500 !important;
   margin: 0;
 }
 h4 {
   font-size: var(--header4-fs);
+  font-weight: 500 !important;
   margin: 0;
 }
 p {
   font-size: var(--paragraph-fs);
+  font-weight: 400 !important;
   margin: 0;
   padding: 0;
 }
