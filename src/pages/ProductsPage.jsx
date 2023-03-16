@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
+import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FindOnMap from "../utils/FindOnMap";
+
 const ProductsPage = () => {
   const services = [
     "Veterinary",
@@ -23,22 +25,63 @@ const ProductsPage = () => {
 
   const animals = ["cat", "dog", "bird", "lion", "fish", "tiger"];
 
-  const sortByOptions = [
-    {label: "Highest rating", value: "Highest rating"},
-    {label: "Closest location", value: "Closest location"},
-    {label: "Higest reviews", value: "Higest reviews"},
-  ];
+  const sortByOptions = {
+    higest_rating: "Higest rating",
+    closest_location: "Closest location",
+    higest_reviews: "Higest reviews",
+  };
 
   const servicesDict = services.reduce((a, v) => ({...a, [v]: false}), {});
 
   const animalsDict = animals.reduce((a, v) => ({...a, [v]: false}), {});
 
-  const [clinicList, setClinicList] = useState([]);
-  const [sortBy, setSortby] = useState("Highest rating");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [petsSelected, setPetSelected] = useState(animalsDict);
+  const [clinicList, setClinicList] = useState([]);
+  const [sortBy, setSortby] = useState(() => {
+    let initialSortBy;
+    if (
+      searchParams.get("sort") === null ||
+      !(searchParams.get("sort") in sortByOptions)
+    ) {
+      initialSortBy = "higest_rating";
+    } else {
+      initialSortBy = searchParams.get("sort");
+    }
+    return initialSortBy;
+  });
+
+  const [textSearch, setTextSearch] = useState(
+    searchParams.get("search") ?? ""
+  );
+
+  const stateToQuery = (state) => {
+    return Object.keys(state)
+      .filter((k) => state[k] === true)
+      .join(",");
+  };
+
+  const queryToState = (query, initialState) => {
+    const state = {...initialState};
+    if (searchParams.get(query) !== null) {
+      const keys = searchParams.get(query).split(",");
+      keys.forEach((key, index) => {
+        if (key in state) {
+          state[key] = true;
+        }
+      });
+    }
+    return state;
+  };
+
+  const [petsSelected, setPetSelected] = useState(
+    queryToState("pets", animalsDict)
+  );
+  const [servicesSelected, setServiceSelected] = useState(
+    queryToState("services", servicesDict)
+  );
+
   const [showMorePets, setShowMorePets] = useState(false);
-  const [serviceSelected, setServiceSelected] = useState(servicesDict);
   const [showMoreServices, SetshowMoreServices] = useState(false);
 
   const handleOnChangePets = (event) => {
@@ -48,18 +91,62 @@ const ProductsPage = () => {
 
   const handleOnChangeServices = (event) => {
     const {name, checked} = event.target;
-    setServiceSelected({...serviceSelected, [name]: checked});
+    setServiceSelected({...servicesSelected, [name]: checked});
   };
 
-  const handleOnChangeSort = (event) => {
+  const handleOnChangeSortBy = (event) => {
     setSortby(event.target.value);
   };
 
+  const handleOnChangeTextSearch = (event) => {
+    setTextSearch(event.target.value);
+  };
+
   const handleDefaultFilter = () => {
-    setSortby("Highest rating");
+    setTextSearch("")
+    setSortby("higest_rating");
     setPetSelected(animalsDict);
     setServiceSelected(servicesDict);
   };
+
+  const fetchContent = async () => {
+    try {
+      const sortBy = searchParams.get("sort");
+      const petTags = Object.keys(petsSelected).filter(
+        (k) => petsSelected[k] === true
+      );
+      const serviceTags = Object.keys(servicesSelected).filter(
+        (k) => servicesSelected[k] === true
+      );
+      const res = await axios.get(`http://localhost:8080/products/clinic`, {
+        params: {
+          sort: sortBy,
+          name: textSearch,
+          petTags: encodeURIComponent(JSON.stringify(petTags)),
+          serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
+        },
+      });
+      setClinicList(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    searchParams.set("pets", stateToQuery(petsSelected));
+    searchParams.set("services", stateToQuery(servicesSelected));
+    searchParams.set("search", textSearch);
+    searchParams.set("sort", sortBy);
+    setSearchParams(searchParams);
+    fetchContent();
+  }, [
+    sortBy,
+    petsSelected,
+    servicesSelected,
+    textSearch,
+    searchParams,
+    setSearchParams,
+  ]);
 
   const TagChips = ({statesAndSetStates}) => {
     return (
@@ -145,20 +232,6 @@ const ProductsPage = () => {
     );
   };
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8080/products/clinic`);
-        console.log(res.data);
-        setClinicList(res.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchContent();
-    return () => {};
-  }, []);
-
   return (
     <div className="product-page-container">
       <div className="header">
@@ -179,7 +252,7 @@ const ProductsPage = () => {
           />
           <FilterBox
             label={"Type of services"}
-            list={serviceSelected}
+            list={servicesSelected}
             onChange={handleOnChangeServices}
             showMore={showMoreServices}
             setShowMore={SetshowMoreServices}
@@ -189,17 +262,25 @@ const ProductsPage = () => {
           <div className="search-sort-container">
             <div className="search">
               <i className="fa-solid fa-magnifying-glass"></i>
-              <input type="text" placeholder="Text search" />
+              <input
+                type="text"
+                placeholder="Text search"
+                value={textSearch}
+                onChange={handleOnChangeTextSearch}
+              />
             </div>
             <div className="default-filter" onClick={handleDefaultFilter}>
               Set default filter
             </div>
             <label className="sort-container">
               Sort by :
-              <select value={sortBy} onChange={handleOnChangeSort}>
-                {sortByOptions.map((option) => (
-                  <option value={option.value} key={option.value}>
-                    {option.label}
+              <select
+                value={searchParams.get("sort")}
+                onChange={handleOnChangeSortBy}
+              >
+                {Object.keys(sortByOptions).map((key, index) => (
+                  <option value={key} key={key}>
+                    {sortByOptions[key]}
                   </option>
                 ))}
               </select>
@@ -208,7 +289,7 @@ const ProductsPage = () => {
           <TagChips
             statesAndSetStates={[
               [petsSelected, handleOnChangePets],
-              [serviceSelected, handleOnChangeServices],
+              [servicesSelected, handleOnChangeServices],
             ]}
           />
           <div className="result-container">

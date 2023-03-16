@@ -56,6 +56,9 @@
             align-items: center;
             input {
               accent-color: var(--primary-cl);
+              &:hover {
+                cursor: pointer;
+              }
             }
           }
           button {
