@@ -10,7 +10,7 @@ const ProductCard = ({clinic}) => {
     amphure,
     tambon,
     rating = 5,
-    review_counts = 0,
+    reviewCounts = 0,
     tags,
     price = 3,
     distance = 10,
@@ -50,7 +50,7 @@ const ProductCard = ({clinic}) => {
               <div className="rating-star">
                 <RenderStars rating={rating} />
               </div>
-              <h4>{`(${review_counts})`}</h4>
+              <h4>{`(${reviewCounts})`}</h4>
               <h4>·</h4>
               <h4 style={{color: "green"}}>{`Open`}</h4>
               <h4>{`Until 10PM`}</h4>
