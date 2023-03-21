@@ -7,25 +7,25 @@ import ProductDetailDescriptionBox from "../components/ProductDetailDescriptionB
 import ProductDetailPriceBox from "../components/ProductDetailPriceBox";
 import ProductDetailRatingBox from "../components/ProductDetailRatingBox";
 
-const ProductDetailPage = ({name, location_description, image, tags}) => {
+const ProductDetailPage = ({name, locationDescription, image, tags}) => {
   const {type, id} = useParams();
   // const demo = {
   //   owner: "",
   //   name: "",
   //   phones: [],
-  //   social_networks: {},
+  //   socialNetworks: {},
   //   status: "",
   //   description: "",
   //   province: "",
   //   amphure: "",
   //   tambon: "",
-  //   location_description: "",
+  //   locationDescription: "",
   //   tags: [],
   //   images: [],
-  //   open_hours: [],
+  //   openHours: [],
   //   prices: [],
   //   reviews: [],
-  //   review_counts: 0,
+  //   reviewCounts: 0,
   // };
 
   const [detail, setDetail] = useState();
@@ -57,12 +57,17 @@ const ProductDetailPage = ({name, location_description, image, tags}) => {
             <ProductDetailSummaryBox className="summary" detail={detail} />
           </div>
           <ProductDetailDescriptionBox
-            open_hours={detail.open_hours}
+            openHours={detail.openHours}
             tags={detail.tags}
             description={detail.description}
           />
-          <ProductDetailPriceBox prices={detail.prices} />
-          {<ProductDetailRatingBox type={type} id={id} />}
+
+          {detail.hasOwnProperty("prices") && detail.prices.length ? (
+            <ProductDetailPriceBox prices={detail.prices} />
+          ) : (
+            <></>
+          )}
+          <ProductDetailRatingBox type={type} id={id} />
         </div>
       )}
     </div>

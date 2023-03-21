@@ -33,7 +33,7 @@ const ProductDetailRatingBox = ({type, id}) => {
   };
   return (
     <>
-      {reviews.length && (
+      {reviews.length ? (
         <div className="product-detail-rating-box">
           <div className="container">
             <i class="fa-solid fa-star"></i>
@@ -70,6 +70,8 @@ const ProductDetailRatingBox = ({type, id}) => {
             })}
           </div>
         </div>
+      ) : (
+        <></>
       )}
     </>
   );
