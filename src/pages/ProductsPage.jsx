@@ -4,7 +4,17 @@ import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FindOnMap from "../utils/FindOnMap";
 
-const ProductsPage = () => {
+const ProductsPage = ({variant}) => {
+  let headerLabel;
+  switch (variant) {
+    case "clinic":
+      headerLabel = "Clinics for pets";
+    case "service":
+      headerLabel = "Services for pets";
+    case "petfriendly":
+      headerLabel = "Places for pets";
+  }
+
   const services = [
     "Veterinary",
     "Outpatient Service",
@@ -103,7 +113,7 @@ const ProductsPage = () => {
   };
 
   const handleDefaultFilter = () => {
-    setTextSearch("")
+    setTextSearch("");
     setSortby("higest_rating");
     setPetSelected(animalsDict);
     setServiceSelected(servicesDict);
@@ -118,7 +128,7 @@ const ProductsPage = () => {
       const serviceTags = Object.keys(servicesSelected).filter(
         (k) => servicesSelected[k] === true
       );
-      const res = await axios.get(`http://localhost:8080/products/clinic`, {
+      const res = await axios.get(`http://localhost:8080/products/${variant}`, {
         params: {
           sort: sortBy,
           name: textSearch,
@@ -235,7 +245,7 @@ const ProductsPage = () => {
   return (
     <div className="product-page-container">
       <div className="header">
-        <h1>Clinics for Pets</h1>
+        <h1>{headerLabel}</h1>
       </div>
       <div className="content-container">
         <div className="filter-container">
