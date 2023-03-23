@@ -30,7 +30,7 @@ const ContentSlide = ({topic, icon, api, searchQuery}) => {
           return (
             <HomeProductCard
               name={content.name}
-              location_description={content.location_description}
+              locationDescription={content.locationDescription}
               tags={content.tags}
               image={content.image}
             />

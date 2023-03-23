@@ -8,7 +8,7 @@ const ProductDetailPriceBox = ({prices}) => {
         {prices.map((value) => {
           return (
             <div className="price">
-              <div className="price-name">{value.name}</div>
+              <div className="price-name">{value.service}</div>
               <div className="price-number">{value.price} Baht</div>
             </div>
           );

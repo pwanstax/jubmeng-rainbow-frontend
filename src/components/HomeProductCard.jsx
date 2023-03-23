@@ -1,6 +1,6 @@
 import React from "react";
 
-const HomeProductCard = ({name, location_description, image, tags}) => {
+const HomeProductCard = ({name, locationDescription, image, tags}) => {
   const chip = {price: "$$", rating: "4.5", distance: "1.2 km"};
 
   return (
@@ -32,7 +32,7 @@ const HomeProductCard = ({name, location_description, image, tags}) => {
             <span>Spay & Neuter</span>
           </div>
         </div>
-        <span>{location_description}</span>
+        <span>{locationDescription}</span>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ const ProductCard = ({clinic}) => {
     amphure,
     tambon,
     rating = 5,
-    review_counts = 0,
+    reviewCounts = 0,
     tags,
     price = 3,
     distance = 10,
@@ -28,9 +28,9 @@ const ProductCard = ({clinic}) => {
         <div className="tag-popup-grid">
           {tags.map((service, i) => {
             return (
-              <div className="tag-popup" key={`${service}${i}`}>
+              <div className="tag-popup" key={`${service.name}${i}`}>
                 <h4>{` ·`}</h4>
-                <h4>{`${service}`}</h4>
+                <h4>{`${service.name}`}</h4>
               </div>
             );
           })}
@@ -40,7 +40,7 @@ const ProductCard = ({clinic}) => {
   };
 
   return (
-    <Link to={`/clinic/${id}`} className="product-link" >
+    <Link to={`/clinic/${id}`} className="product-link">
       <div className="product-card">
         <img src={image} alt="" />
         <div className="product-info">
@@ -50,7 +50,7 @@ const ProductCard = ({clinic}) => {
               <div className="rating-star">
                 <RenderStars rating={rating} />
               </div>
-              <h4>{`(${review_counts})`}</h4>
+              <h4>{`(${reviewCounts})`}</h4>
               <h4>·</h4>
               <h4 style={{color: "green"}}>{`Open`}</h4>
               <h4>{`Until 10PM`}</h4>
@@ -69,9 +69,9 @@ const ProductCard = ({clinic}) => {
               tags.map((service, i) => {
                 if (i < 3) {
                   return (
-                    <div className="tag" key={`${name}${service}${i}`}>
-                      {/* <i class="fa-regular fa-star fa-lg"></i> */}
-                      <h4>{`${service}`}</h4>
+                    <div className="tag" key={`${name}${service.name}${i}`}>
+                      {/* {<i class={service.class}></i>} */}
+                      <h4>{`${service.name}`}</h4>
                       {i == 2 && tags.length > 3 && (
                         <>
                           <h4
