@@ -44,21 +44,21 @@ const ProfilePage = () => {
     }
   };
 
-  const handleLogout = async () => {
-    sessionStorage.clear();
-    const res = await axios.post(
-      `http://localhost:8080/user/logout`,
-      {
-        cookie_name: "auth",
-      },
-      {
-        withCredentials: true,
-      }
-    ); // change path to backend service
+  // const handleLogout = async () => {
+  //   sessionStorage.clear();
+  //   const res = await axios.post(
+  //     `http://localhost:8080/user/logout`,
+  //     {
+  //       cookie_name: "auth",
+  //     },
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   ); // change path to backend service
 
-    alert(res.data);
-    window.location.assign("/");
-  };
+  //   alert(res.data);
+  //   window.location.assign("/");
+  // };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -128,7 +128,7 @@ const ProfilePage = () => {
             <button>My profile</button>
             <button>Be a seller</button>
             <button>My bookmarks</button>
-            <button onClick={handleLogout}>Log out</button>
+            {/* <button onClick={handleLogout}>Log out</button> */}
           </div>
         </div>
         <div className="content">

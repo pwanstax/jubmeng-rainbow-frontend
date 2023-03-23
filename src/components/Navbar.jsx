@@ -7,12 +7,11 @@ import useOutsideClick from "../hooks/useOutsideCllick";
 const Navbar = () => {
   const [navbarInfo, setNavbarInfo] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
+  const ref = useOutsideClick(() => setOpenDropdown(false));
 
   const toggleDropdown = () => {
     setOpenDropdown(!openDropdown);
   };
-
-  const ref = useOutsideClick(() => setOpenDropdown(false));
 
   const handleLogout = async () => {
     sessionStorage.clear();
@@ -26,7 +25,7 @@ const Navbar = () => {
       }
     ); // change path to backend service
 
-    alert(res.data);
+    // alert(res.data);
     window.location.assign("/");
   };
 
@@ -59,8 +58,7 @@ const Navbar = () => {
             },
             withCredentials: true,
           }); // change path to backend service
-          setNavbarInfo(res.data.user);
-          console.log(res.data);
+          setNavbarInfo(res.data);
         } catch (error) {
           console.error(error);
         }
