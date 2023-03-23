@@ -7,12 +7,11 @@ import useOutsideClick from "../hooks/useOutsideCllick";
 const Navbar = () => {
   const [navbarInfo, setNavbarInfo] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
+  const ref = useOutsideClick(() => setOpenDropdown(false));
 
   const toggleDropdown = () => {
     setOpenDropdown(!openDropdown);
   };
-
-  const ref = useOutsideClick(() => setOpenDropdown(false));
 
   const handleLogout = async () => {
     sessionStorage.clear();
