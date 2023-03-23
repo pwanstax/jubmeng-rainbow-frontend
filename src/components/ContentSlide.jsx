@@ -2,13 +2,15 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import HomeProductCard from "./HomeProductCard";
 
-const ContentSlide = ({topic, icon, api}) => {
+const ContentSlide = ({topic, icon, api, searchQuery}) => {
   const [contents, setContents] = useState([]);
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/products/${api}`); // change path to backend service
+        const res = await axios.get(
+          `http://localhost:8080/products/${api}?name=${searchQuery}`
+        ); // change path to backend service
         setContents(res.data);
         console.log(res);
       } catch (error) {
@@ -16,7 +18,7 @@ const ContentSlide = ({topic, icon, api}) => {
       }
     };
     fetchContent();
-  }, [api]);
+  }, [searchQuery]);
   return (
     <div className="content-slide-container">
       <h1>
