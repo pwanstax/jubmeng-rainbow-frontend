@@ -16,7 +16,7 @@ const HomePage = () => {
     {topic: "Veterinary Clinics", icon: "cat", api: "petfriendly"},
   ];
 
-  const handleClick = () => {
+  const handleClick = (event) => {
     setShowModal(!showModal);
   };
 
@@ -34,9 +34,9 @@ const HomePage = () => {
         petInputList={petInputList}
         setPetInputList={setPetInputList}
       />
-      {contents.map((content) => {
+      {contents.map((content, index) => {
         return (
-          <div className="content-wrap">
+          <div className="content-wrap" key={index}>
             <ContentSlide
               topic={content.topic}
               icon={content.icon}

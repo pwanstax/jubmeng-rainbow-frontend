@@ -1,47 +1,25 @@
 import axios from "axios";
+import {useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import MyProfile from "../components/MyProfile";
+import MyProduct from "../components/MyProduct";
 
 const ProfilePage = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [imageFile, setImageFile] = useState(null);
-  const toggleIsEdit = () => {
-    setIsEdit(!isEdit);
+  const [menu, setMenu] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const changeParamsMenu = (event) => {
+    searchParams.set("menu", event.target.value);
+    setSearchParams(searchParams);
   };
-
-  const handleChange = (event) => {
-    const {name, value} = event.target;
-    setUserInfo({
-      ...userInfo,
-      [name]: value,
-    });
-  };
-
-  const submitUserInfo = async () => {
-    try {
-      const id = sessionStorage.getItem("user_id");
-      const formData = new FormData();
-      formData.append("id", id);
-
-      for (const [key, value] of Object.entries(userInfo)) {
-        formData.append(key, value);
-      }
-
-      if (imageFile) {
-        console.log("in");
-        formData.append("image", imageFile);
-      }
-
-      await axios.patch(`http://localhost:8080/user/info`, formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      toggleIsEdit();
-    } catch (error) {
-      console.log(error);
-    }
+  const menus = {
+    me: "Profile",
+    favorite: "Favorites",
+    product: "My products",
+    logout: "Logout",
   };
 
   // const handleLogout = async () => {
@@ -104,6 +82,16 @@ const ProfilePage = () => {
 
     fetchUserInfo();
   }, []);
+  useEffect(() => {
+    if (
+      searchParams.get("menu") === null ||
+      !(searchParams.get("menu") in menus)
+    ) {
+      searchParams.set("menu", "me");
+      setSearchParams(searchParams);
+    }
+    setMenu(searchParams.get("menu"));
+  }, [searchParams, setSearchParams]);
 
   return (
     <div className="profilepage-container">
@@ -125,51 +113,39 @@ const ProfilePage = () => {
             <h4>{`@${userInfo.username}`}</h4>
           </div>
           <div className="menu card">
-            <button>My profile</button>
-            <button>Be a seller</button>
-            <button>My bookmarks</button>
-            {/* <button onClick={handleLogout}>Log out</button> */}
+            {Object.keys(menus).map((key) => {
+              return (
+                <button
+                  value={key}
+                  key={`${key}-${menus[key]}`}
+                  className={key === menu ? "selected" : ""}
+                  onClick={changeParamsMenu}
+                >
+                  {menus[key]}
+                </button>
+              );
+            })}
           </div>
         </div>
         <div className="content">
-          <div className="detail card">
-            <div className="header">
-              <h2>My profile</h2>
-              <button onClick={isEdit ? submitUserInfo : toggleIsEdit}>
-                {isEdit ? "Save" : "Edit"}
-              </button>
-            </div>
-            <div className="info-container">
-              {userInfo &&
-                Object.keys(userInfo).map((key, index) => {
-                  return key !== "image" ? (
-                    <div className="text" key={index}>
-                      <div className="label">{key}</div>
-                      <div className="value">
-                        {isEdit ? (
-                          <input
-                            id={key}
-                            name={key}
-                            className=""
-                            value={userInfo[key]}
-                            onChange={handleChange}
-                            disabled={
-                              key === "username" ||
-                              key === "email" ||
-                              key === "image"
-                            }
-                          />
-                        ) : (
-                          <h4>{userInfo[key]}</h4>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <div key={index}></div>
-                  );
-                })}
-            </div>
-          </div>
+          {menu === "me" && (
+            <MyProfile
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              imageFile={imageFile}
+            />
+          )}
+          {menu === "product" && (
+            <MyProduct
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              imageFile={imageFile}
+            />
+          )}
         </div>
       </div>
     </div>

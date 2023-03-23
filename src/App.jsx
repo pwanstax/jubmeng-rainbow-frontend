@@ -23,9 +23,15 @@ const App = () => {
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/resetPassword" element={<ResetPasswordPage />} />
           <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-          <Route path="/clinic" element={<ProductsPage variant="clinic"/>} />
-          <Route path="/pet-service" element={<ProductsPage variant="service"/>} />
-          <Route path="/friendly-place" element={<ProductsPage variant="petfriendly"/>} />
+          <Route path="/clinic" element={<ProductsPage variant="clinic" />} />
+          <Route
+            path="/pet-service"
+            element={<ProductsPage variant="service" />}
+          />
+          <Route
+            path="/friendly-place"
+            element={<ProductsPage variant="petfriendly" />}
+          />
           <Route path="/:type/:id" element={<ProductDetailPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           {/* <Route path="/addProduct" element={<AddProductPage />} /> */}

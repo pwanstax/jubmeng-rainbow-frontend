@@ -12,7 +12,6 @@ const ContentSlide = ({topic, icon, api, searchQuery}) => {
           `http://localhost:8080/products/${api}?name=${searchQuery}`
         ); // change path to backend service
         setContents(res.data);
-        console.log(res);
       } catch (error) {
         console.error(error);
       }
@@ -26,13 +25,14 @@ const ContentSlide = ({topic, icon, api, searchQuery}) => {
         {topic}
       </h1>
       <div className="cards-wrap">
-        {contents.map((content) => {
+        {contents.map((content, index) => {
           return (
             <HomeProductCard
               name={content.name}
               locationDescription={content.locationDescription}
               tags={content.tags}
               image={content.image}
+              key={index}
             />
           );
         })}
