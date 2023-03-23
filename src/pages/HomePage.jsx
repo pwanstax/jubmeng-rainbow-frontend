@@ -8,6 +8,7 @@ import PetModalFilter from "../components/PetModalFilter";
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [petInputList, setPetInputList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const contents = [
     {topic: "Now trending", icon: "paw", api: "clinic"},
@@ -22,7 +23,11 @@ const HomePage = () => {
   return (
     <div className="homepage-container">
       <SlideBanner />
-      <ProductMenu handleClick={handleClick} />
+      <ProductMenu
+        handleClick={handleClick}
+        setSearchQuery={setSearchQuery}
+        searchQuery={searchQuery}
+      />
       <PetModalFilter
         showModal={showModal}
         setShowModal={setShowModal}
@@ -36,6 +41,7 @@ const HomePage = () => {
               topic={content.topic}
               icon={content.icon}
               api={content.api}
+              searchQuery={searchQuery}
             />
           </div>
         );
