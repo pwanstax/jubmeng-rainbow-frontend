@@ -34,14 +34,18 @@ const ProductMenu = ({handleClick, setSearchQuery, searchQuery}) => {
             <i className="fa-solid fa-syringe"></i>
           </div>
         </Link>
-        <div onClick={handleClick} className="product-button">
-          <h2>Pet Service</h2>
-          <i className="fa-solid fa-stethoscope"></i>
-        </div>
-        <div onClick={handleClick} className="product-button">
-          <h2>Friendly Place</h2>
-          <i className="fa-solid fa-mountain-city"></i>
-        </div>
+        <Link to="/pet-service">
+          <div onClick={handleClick} className="product-button">
+            <h2>Pet Service</h2>
+            <i className="fa-solid fa-stethoscope"></i>
+          </div>
+        </Link>
+        <Link to="/friendly-place">
+          <div onClick={handleClick} className="product-button">
+            <h2>Friendly Place</h2>
+            <i className="fa-solid fa-mountain-city"></i>
+          </div>
+        </Link>
       </div>
     </div>
   );

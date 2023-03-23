@@ -4,7 +4,17 @@ import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FindOnMap from "../utils/FindOnMap";
 
-const ProductsPage = () => {
+const ProductsPage = ({variant}) => {
+  let headerLabel;
+  switch (variant) {
+    case "clinic":
+      headerLabel = "Clinics for pets";
+    case "service":
+      headerLabel = "Services for pets";
+    case "petfriendly":
+      headerLabel = "Places for pets";
+  }
+
   const services = [
     "Veterinary",
     "Outpatient Service",
@@ -37,7 +47,7 @@ const ProductsPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [clinicList, setClinicList] = useState([]);
+  const [productList, setproductList] = useState([]);
   const [sortBy, setSortby] = useState(() => {
     let initialSortBy;
     if (
@@ -118,7 +128,7 @@ const ProductsPage = () => {
       const serviceTags = Object.keys(servicesSelected).filter(
         (k) => servicesSelected[k] === true
       );
-      const res = await axios.get(`http://localhost:8080/products/clinic`, {
+      const res = await axios.get(`http://localhost:8080/products/${variant}`, {
         params: {
           sort: sortBy,
           name: textSearch,
@@ -126,7 +136,7 @@ const ProductsPage = () => {
           serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
         },
       });
-      setClinicList(res.data);
+      setproductList(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -235,7 +245,7 @@ const ProductsPage = () => {
   return (
     <div className="product-page-container">
       <div className="header">
-        <h1>Clinics for Pets</h1>
+        <h1>{headerLabel}</h1>
       </div>
       <div className="content-container">
         <div className="filter-container">
@@ -293,9 +303,8 @@ const ProductsPage = () => {
             ]}
           />
           <div className="result-container">
-            {clinicList.map((clinic, i) => {
-              console.log(clinic);
-              return <ProductCard clinic={clinic} key={i} />;
+            {productList.map((product, i) => {
+              return <ProductCard product={product} key={i} type={variant} />;
             })}
           </div>
         </div>

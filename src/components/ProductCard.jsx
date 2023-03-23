@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import RenderStars from "../utils/RenderStars";
-const ProductCard = ({clinic}) => {
+const ProductCard = ({product, type}) => {
   const {
     id,
     name,
@@ -15,7 +15,7 @@ const ProductCard = ({clinic}) => {
     price = 3,
     distance = 10,
     image = "https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-  } = clinic;
+  } = product;
 
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const ProductCard = ({clinic}) => {
   };
 
   return (
-    <Link to={`/clinic/${id}`} className="product-link">
+    <Link to={`/${type}/${id}`} className="product-link">
       <div className="product-card">
         <div className="image-container">
           <img src={image} alt="" />
