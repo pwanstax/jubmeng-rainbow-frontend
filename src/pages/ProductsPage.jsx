@@ -47,7 +47,7 @@ const ProductsPage = ({variant}) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [clinicList, setClinicList] = useState([]);
+  const [productList, setproductList] = useState([]);
   const [sortBy, setSortby] = useState(() => {
     let initialSortBy;
     if (
@@ -136,7 +136,7 @@ const ProductsPage = ({variant}) => {
           serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
         },
       });
-      setClinicList(res.data);
+      setproductList(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -303,8 +303,8 @@ const ProductsPage = ({variant}) => {
             ]}
           />
           <div className="result-container">
-            {clinicList.map((clinic, i) => {
-              return <ProductCard clinic={clinic} key={i} />;
+            {productList.map((product, i) => {
+              return <ProductCard product={product} key={i} type={variant} />;
             })}
           </div>
         </div>
