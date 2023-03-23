@@ -25,7 +25,7 @@ const Navbar = () => {
       }
     ); // change path to backend service
 
-    alert(res.data);
+    // alert(res.data);
     window.location.assign("/");
   };
 
