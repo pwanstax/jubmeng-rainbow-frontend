@@ -12,7 +12,6 @@ const ContentSlide = ({topic, icon, api, searchQuery}) => {
           `http://localhost:8080/products/${api}?name=${searchQuery}`
         ); // change path to backend service
         setContents(res.data);
-        console.log(res);
       } catch (error) {
         console.error(error);
       }
