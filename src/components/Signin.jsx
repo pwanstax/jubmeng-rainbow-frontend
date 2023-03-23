@@ -96,9 +96,8 @@ const Signin = ({signin, signup}) => {
       const res = await axios.post(`http://localhost:8080/user/login`, data, {
         withCredentials: true,
       });
-      console.log(res);
-      sessionStorage.setItem("user_id", res.headers.user_id);
-      sessionStorage.setItem("username", res.headers.username);
+      await sessionStorage.setItem("user_id", res.headers.user_id);
+      await sessionStorage.setItem("username", res.headers.username);
       window.location.assign("/");
     } catch (error) {
       console.error(error);

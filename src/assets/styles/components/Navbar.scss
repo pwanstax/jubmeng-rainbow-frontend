@@ -48,8 +48,10 @@
         position: relative;
         margin-left: 16px;
         height: 36px;
+        width: 36px;
         img {
           height: 100%;
+          width: 100%;
           object-fit: cover;
           border-radius: 50%;
           background-color: var(--white-cl);
@@ -64,15 +66,15 @@
           width: 200px;
           border-radius: 8px;
           background-color: var(--white-cl);
-          box-shadow: 0 2px 54px 0 rgba(0,0,0,.1);;
-          ::after{
-              content: " ";
-              position: absolute;
-              border-width: 0 10px 8px;
-              top: -8px;
-              border-color: var(--white-cl) transparent;
-              border-style: solid;
-              right: 24px;
+          box-shadow: 0 2px 54px 0 rgba(0, 0, 0, 0.1);
+          ::after {
+            content: " ";
+            position: absolute;
+            border-width: 0 10px 8px;
+            top: -8px;
+            border-color: var(--white-cl) transparent;
+            border-style: solid;
+            right: 24px;
           }
           .menu {
             width: 100%;
