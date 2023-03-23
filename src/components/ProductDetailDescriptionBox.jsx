@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductDetailDescriptionBox = ({open_hours, tags, description}) => {
+const ProductDetailDescriptionBox = ({openHours, tags, description}) => {
   const days = {
     mon: "Monday",
     tue: "Tuesday",
@@ -15,7 +15,7 @@ const ProductDetailDescriptionBox = ({open_hours, tags, description}) => {
       <div className="container">
         <i class="fa-solid fa-clock"></i>
         <div className="open-hours">
-          {open_hours.map((value) => {
+          {openHours.map((value) => {
             return (
               <div className="each-day">
                 <div className="day-name">{days[value.day]}</div>
@@ -23,7 +23,7 @@ const ProductDetailDescriptionBox = ({open_hours, tags, description}) => {
                   {value.periods.map((value) => {
                     return (
                       <div className="period">
-                        {value.open_at} - {value.close_at}
+                        {value.openAt} - {value.closeAt}
                       </div>
                     );
                   })}

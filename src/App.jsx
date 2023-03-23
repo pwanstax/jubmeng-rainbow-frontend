@@ -10,6 +10,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import ResetPasswordPage from "./components/ResetPasswordPage";
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
 import ProfilePage from "./pages/ProfilePage";
+// import AddProductPage from "./pages/AddProductPage";
 
 const App = () => {
   return (
@@ -23,8 +24,9 @@ const App = () => {
           <Route path="/resetPassword" element={<ResetPasswordPage />} />
           <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
           <Route path="/clinic" element={<ProductsPage />} />
-          <Route path="/clinic/:id" element={<ProductDetailPage />} />
+          <Route path="/:type/:id" element={<ProductDetailPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          {/* <Route path="/addProduct" element={<AddProductPage />} /> */}
           <Route path="*" element={<NoPage />} />
         </Routes>
         <Footer />
