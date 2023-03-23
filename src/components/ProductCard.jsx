@@ -42,7 +42,9 @@ const ProductCard = ({clinic}) => {
   return (
     <Link to={`/clinic/${id}`} className="product-link">
       <div className="product-card">
-        <img src={image} alt="" />
+        <div className="image-container">
+          <img src={image} alt="" />
+        </div>
         <div className="product-info">
           <div className="description">
             <h2>{name}</h2>

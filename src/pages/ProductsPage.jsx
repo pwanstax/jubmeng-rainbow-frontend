@@ -103,7 +103,7 @@ const ProductsPage = () => {
   };
 
   const handleDefaultFilter = () => {
-    setTextSearch("")
+    setTextSearch("");
     setSortby("higest_rating");
     setPetSelected(animalsDict);
     setServiceSelected(servicesDict);
@@ -294,6 +294,7 @@ const ProductsPage = () => {
           />
           <div className="result-container">
             {clinicList.map((clinic, i) => {
+              console.log(clinic);
               return <ProductCard clinic={clinic} key={i} />;
             })}
           </div>

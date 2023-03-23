@@ -2,6 +2,7 @@ import axios from "axios";
 import {useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import MyProfile from "../components/MyProfile";
+import MyProduct from "../components/MyProduct";
 
 const ProfilePage = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -15,9 +16,9 @@ const ProfilePage = () => {
     setSearchParams(searchParams);
   };
   const menus = {
-    me: "My profile",
-    booking: "My booking",
-    car: "My cars",
+    me: "Profile",
+    favorite: "Favorites",
+    product: "My products",
     logout: "Logout",
   };
 
@@ -129,6 +130,15 @@ const ProfilePage = () => {
         <div className="content">
           {menu === "me" && (
             <MyProfile
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              imageFile={imageFile}
+            />
+          )}
+          {menu === "product" && (
+            <MyProduct
               userInfo={userInfo}
               setUserInfo={setUserInfo}
               isEdit={isEdit}

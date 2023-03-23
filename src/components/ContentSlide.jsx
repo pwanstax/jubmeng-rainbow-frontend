@@ -25,13 +25,14 @@ const ContentSlide = ({topic, icon, api, searchQuery}) => {
         {topic}
       </h1>
       <div className="cards-wrap">
-        {contents.map((content) => {
+        {contents.map((content, index) => {
           return (
             <HomeProductCard
               name={content.name}
               locationDescription={content.locationDescription}
               tags={content.tags}
               image={content.image}
+              key={index}
             />
           );
         })}
