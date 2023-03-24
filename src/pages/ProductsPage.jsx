@@ -147,7 +147,7 @@ const ProductsPage = ({variant}) => {
     searchParams.set("services", stateToQuery(servicesSelected));
     searchParams.set("search", textSearch);
     searchParams.set("sort", sortBy);
-    setSearchParams(searchParams);
+    setSearchParams(searchParams, { replace: true });
     fetchContent();
   }, [
     sortBy,
