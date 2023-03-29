@@ -3,6 +3,7 @@ $gallery-height: calc(37vw - 100px);
 .product-gallery {
   margin-right: 25px;
   border: 1px solid var(--grey-500);
+  height: $gallery-height;
   border-radius: 8px;
   padding: 10px;
   display: flex;

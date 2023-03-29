@@ -109,12 +109,12 @@ const AddProductPage = () => {
             },
           }
         );
-        //window.location.assign("/");
+        window.location.assign("/");
       } catch (error) {
         console.log("error", error);
       }
     };
-    if (step == 5) {
+    if (step === 5) {
       //submit
       const formData = createSubmitFormData();
       sendData(formData);
@@ -126,7 +126,7 @@ const AddProductPage = () => {
     <div className="add-product-page">
       <div className="wrap-all">
         <h2 className="title">Add Your Merchant</h2>
-        {step == 1 && (
+        {step === 1 && (
           <BasicInfoForm
             data={dataStep1}
             setData={setDataStep1}
@@ -134,7 +134,7 @@ const AddProductPage = () => {
             setStep={setStep}
           />
         )}
-        {step == 2 && (
+        {step === 2 && (
           <div>
             <LocationForm
               data={dataStep2}
@@ -144,7 +144,7 @@ const AddProductPage = () => {
             />
           </div>
         )}
-        {step == 3 && (
+        {step === 3 && (
           <TagsAndOpenHoursForm
             data={dataStep3}
             setData={setDataStep3}
@@ -153,7 +153,7 @@ const AddProductPage = () => {
             setStep={setStep}
           />
         )}
-        {step == 4 && (
+        {(step === 4 || step === 5) && (
           <ImagesForm setData={setDataStep4} step={step} setStep={setStep} />
         )}
       </div>

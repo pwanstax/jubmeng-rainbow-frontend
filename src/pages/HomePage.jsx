@@ -11,9 +11,9 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const contents = [
-    {topic: "Now trending", icon: "paw", api: "clinic"},
-    {topic: "Places-to-go", icon: "dog", api: "service"},
-    {topic: "Veterinary Clinics", icon: "cat", api: "petfriendly"},
+    {topic: "Now trending", icon: "paw", type: "clinic"},
+    {topic: "Places-to-go", icon: "dog", type: "service"},
+    {topic: "Veterinary Clinics", icon: "cat", type: "petfriendly"},
   ];
 
   const handleClick = (event) => {
@@ -40,7 +40,7 @@ const HomePage = () => {
             <ContentSlide
               topic={content.topic}
               icon={content.icon}
-              api={content.api}
+              type={content.type}
               searchQuery={searchQuery}
             />
           </div>

@@ -80,7 +80,7 @@ const Navbar = () => {
           <Link to="/" className="content">
             Home
           </Link>
-          <Link to="/" className="content">
+          <Link to="/addProduct" className="content">
             Add New Merchant
           </Link>
           <Link to="/about" className="content">
@@ -107,17 +107,8 @@ const Navbar = () => {
                           My profile
                         </Link>
                       </li>
-                      {/* <li onClick={handleMyBooking} className="menu-item">
-                        My booking
-                      </li> */}
-
                       {navbarInfo.isLessor ? (
-                        <li
-                          className="menu-item"
-                          // onClick={handleAddCar}
-                        >
-                          Add your store
-                        </li>
+                        <></>
                       ) : (
                         <li
                           onClick={handleRegisterSeller}

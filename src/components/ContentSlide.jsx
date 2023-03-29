@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import HomeProductCard from "./HomeProductCard";
 
-const ContentSlide = ({topic, icon, api, searchQuery}) => {
+const ContentSlide = ({topic, icon, type, searchQuery}) => {
   const [contents, setContents] = useState([]);
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/products/${api}?name=${searchQuery}`
+          `http://localhost:8080/products/${type}?name=${searchQuery}`
         ); // change path to backend service
         setContents(res.data);
       } catch (error) {
@@ -28,10 +28,12 @@ const ContentSlide = ({topic, icon, api, searchQuery}) => {
         {contents.map((content, index) => {
           return (
             <HomeProductCard
+              id={content.id}
               name={content.name}
               locationDescription={content.locationDescription}
               tags={content.tags}
               image={content.image}
+              type={type}
               key={index}
             />
           );
