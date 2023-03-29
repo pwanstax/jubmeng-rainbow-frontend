@@ -18,8 +18,6 @@ const ProductMenu = ({handleClick, setSearchQuery, searchQuery}) => {
         <input
           type="text"
           placeholder="Find your service.."
-          // value={searchQuery}
-          // onChange={(event) => setSearchQuery(event.target.value)}
           onKeyDown={handleKeyDown}
         />
         <i
@@ -28,24 +26,24 @@ const ProductMenu = ({handleClick, setSearchQuery, searchQuery}) => {
         ></i>
       </div>
       <div className="product-menu">
-        <Link to="/clinic">
-          <div onClick={handleClick} className="product-button">
-            <h2>Clinic</h2>
-            <i className="fa-solid fa-syringe"></i>
-          </div>
-        </Link>
-        <Link to="/pet-service">
-          <div onClick={handleClick} className="product-button">
-            <h2>Pet Service</h2>
-            <i className="fa-solid fa-stethoscope"></i>
-          </div>
-        </Link>
-        <Link to="/friendly-place">
-          <div onClick={handleClick} className="product-button">
-            <h2>Friendly Place</h2>
-            <i className="fa-solid fa-mountain-city"></i>
-          </div>
-        </Link>
+        <div onClick={() => handleClick("clinic")} className="product-button">
+          <h2>Clinic</h2>
+          <i className="fa-solid fa-syringe"></i>
+        </div>
+        <div
+          onClick={() => handleClick("pet-service")}
+          className="product-button"
+        >
+          <h2>Pet Service</h2>
+          <i className="fa-solid fa-stethoscope"></i>
+        </div>
+        <div
+          onClick={() => handleClick("friendly-place")}
+          className="product-button"
+        >
+          <h2>Friendly Place</h2>
+          <i className="fa-solid fa-mountain-city"></i>
+        </div>
       </div>
     </div>
   );
