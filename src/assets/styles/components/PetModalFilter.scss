@@ -25,15 +25,23 @@
       grid-template-columns: repeat(3, auto);
       gap: 8px;
       justify-items: center;
-      > div {
+
+      .pet-item {
+        &.selected {
+          background-color: var(--primary-cl);
+          color: white;
+          i {
+            color: white;
+          }
+        }
         display: flex;
         border-radius: 8px;
         padding: 12px 16px;
-        border: 1px solid var(--primary-color);
+        border: 1px solid var(--primary-cl);
         align-items: center;
         justify-content: center;
         i {
-          color: var(--primary-color);
+          color: var(--primary-cl);
           //   transition: color 0.15s ease-in-out;
           margin-right: 8px;
         }
@@ -41,7 +49,7 @@
         // transition: color 0.15s ease-in-out;
         &:hover {
           cursor: pointer;
-          background-color: var(--primary-color);
+          background-color: var(--primary-cl);
           color: white;
           i {
             color: white;
@@ -50,7 +58,7 @@
       }
     }
     button {
-      background-color: var(--primary-color);
+      background-color: var(--primary-cl);
       color: white;
       border-radius: 8px;
       padding: 12px 16px;
@@ -59,9 +67,9 @@
       transition: background-color 0.15s ease-in-out;
       &:hover {
         cursor: pointer;
-        border: 1px solid var(--primary-color);
+        border: 1px solid var(--primary-cl);
         background-color: white;
-        color: var(--primary-color);
+        color: var(--primary-cl);
       }
     }
   }

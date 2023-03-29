@@ -7,17 +7,17 @@ import PetModalFilter from "../components/PetModalFilter";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [petInputList, setPetInputList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [pickService, setService] = useState("");
   const contents = [
     {topic: "Now trending", icon: "paw", type: "clinic"},
     {topic: "Places-to-go", icon: "dog", type: "service"},
     {topic: "Veterinary Clinics", icon: "cat", type: "petfriendly"},
   ];
 
-  const handleClick = (event) => {
-    setShowModal(!showModal);
+  const handleClick = (service) => {
+    setShowModal(true);
+    setService(service);
   };
 
   return (
@@ -29,10 +29,9 @@ const HomePage = () => {
         searchQuery={searchQuery}
       />
       <PetModalFilter
+        pickService={pickService}
         showModal={showModal}
         setShowModal={setShowModal}
-        petInputList={petInputList}
-        setPetInputList={setPetInputList}
       />
       {contents.map((content, index) => {
         return (
