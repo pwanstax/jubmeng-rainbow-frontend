@@ -16,6 +16,10 @@ const PetModalFilter = ({showModal, setShowModal, pickService}) => {
       icon: "fa-fish",
     },
     {
+      name: "Bird",
+      icon: "fa-dove",
+    },
+    {
       name: "Horse",
       icon: "fa-horse",
     },
@@ -38,10 +42,6 @@ const PetModalFilter = ({showModal, setShowModal, pickService}) => {
     {
       name: "Spider",
       icon: "fa-spider",
-    },
-    {
-      name: "Bird",
-      icon: "fa-dove",
     },
     {
       name: "Cow",
