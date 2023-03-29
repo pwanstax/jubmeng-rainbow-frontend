@@ -1,0 +1,78 @@
+.add-product-page {
+    margin-top: var(--navbar-height);
+    //width: 100%;
+    min-height: 80vh;
+    padding: 2vw;
+    background-color: var(--secondary-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .wrap-all{
+        border: 2px solid  var(--primary-cl);
+        margin-bottom: 4vw;
+        padding: 32px;
+        @media (min-width: 514px) {
+          width: 514px;
+        }
+        @media (max-width: 514px) {
+          width: 100%;
+        }
+        box-shadow: 0 2px 4px -1px rgb(5 25 45 / 30%);
+        background-color: var(--contrast-color);  
+        .title{
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        h4{
+            margin-top: 0.5rem;
+        }
+        .error{
+            color: red;
+        }
+        .form{
+            display: flex;
+            flex-direction: column;
+            input{
+                height: 26px;
+                padding-left: 5px;
+            }
+            textarea{
+                padding-left: 5px;
+            }
+            select{
+                height: 30px;
+            }
+            .btn{
+                height: 31px;
+                background-color: transparent;
+                border: 2px solid var(--primary-cl);
+                &:hover {
+                    cursor: pointer;
+                  }
+                //border-radius: 8px;
+            }
+            .index{
+                display: inline-block;
+                width: 1.5rem;
+            }
+            
+            .delete-btn{
+                margin-left: 5px;
+            }
+            .submit-btn{
+                margin-top: 1.5rem;
+                
+            }
+            input::file-selector-button {
+                background-color: transparent;
+                border: 2px solid var(--primary-cl);
+                //padding: 0;
+            }
+            .required{
+                color: red;
+            }
+        }
+        
+    }
+}
+  

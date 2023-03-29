@@ -1,0 +1,36 @@
+.images-form{
+    --img-size: 160px;
+    .control{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2rem;
+    }
+    .line-between{
+        margin: 20px 0 30px 0;
+        width: 100%;
+        height: 2px;
+        border: 0px;
+        background-color: var(--primary-cl);
+    }
+    .images{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px; 
+        .delete-img{
+            position: absolute;
+            width: 70px;
+            height: 20px;
+            margin-left: calc(var(--img-size) - 70px);
+            background-color: white;
+            border: 2px solid var(--primary-cl);
+        }
+        img{
+            width: var(--img-size);
+            height: var(--img-size);
+            object-fit: cover;
+        }
+    }
+        
+
+}

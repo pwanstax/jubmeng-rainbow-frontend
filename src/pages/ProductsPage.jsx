@@ -36,9 +36,9 @@ const ProductsPage = ({variant}) => {
   const animals = ["cat", "dog", "bird", "lion", "fish", "tiger"];
 
   const sortByOptions = {
-    higest_rating: "Higest rating",
+    highest_rating: "Highest rating",
     closest_location: "Closest location",
-    higest_reviews: "Higest reviews",
+    highest_reviews: "Highest reviews",
   };
 
   const servicesDict = services.reduce((a, v) => ({...a, [v]: false}), {});
@@ -54,7 +54,7 @@ const ProductsPage = ({variant}) => {
       searchParams.get("sort") === null ||
       !(searchParams.get("sort") in sortByOptions)
     ) {
-      initialSortBy = "higest_rating";
+      initialSortBy = "highest_rating";
     } else {
       initialSortBy = searchParams.get("sort");
     }
@@ -114,7 +114,7 @@ const ProductsPage = ({variant}) => {
 
   const handleDefaultFilter = () => {
     setTextSearch("");
-    setSortby("higest_rating");
+    setSortby("highest_rating");
     setPetSelected(animalsDict);
     setServiceSelected(servicesDict);
   };
@@ -147,7 +147,7 @@ const ProductsPage = ({variant}) => {
     searchParams.set("services", stateToQuery(servicesSelected));
     searchParams.set("search", textSearch);
     searchParams.set("sort", sortBy);
-    setSearchParams(searchParams, { replace: true });
+    setSearchParams(searchParams, {replace: true});
     fetchContent();
   }, [
     sortBy,
