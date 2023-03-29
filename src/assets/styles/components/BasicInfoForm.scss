@@ -1,0 +1,22 @@
+.basic-info-form{
+    .form{
+        .phones{
+            display: inline-grid;
+            gap: 5px;
+            .index{
+                display: inline-block;
+                width: 1.5rem;
+            }
+            .phone{
+                width: 10rem;
+            }
+            .add-btn{
+                width: calc(11.5rem + 10px);
+            }   
+        }
+        textarea{
+            resize: none;
+            height: 100px;
+        }
+    }
+}

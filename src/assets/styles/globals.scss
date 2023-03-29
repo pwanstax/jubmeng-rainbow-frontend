@@ -6,6 +6,7 @@
 @import "./pages/ResetPasswordPage.scss";
 @import "./pages/ProductDetailPage.scss";
 @import "./pages/ProfilePage.scss";
+@import "./pages/AddProductPage.scss";
 
 @import "./components/Navbar.scss";
 @import "./components/SlideBanner.scss";
@@ -27,6 +28,10 @@
 @import "./utils/RenderStars.scss";
 @import "./utils/FindOnMap.scss";
 @import "./components/Profile.scss";
+@import "./components/BasicInfoForm.scss";
+@import "./components/LocationForm.scss";
+@import "./components/TagsAndOpenHoursForm.scss";
+@import "./components/ImagesForm.scss";
 
 :root {
   font-size: 16px;
