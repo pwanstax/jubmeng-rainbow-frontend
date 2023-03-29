@@ -14,6 +14,8 @@ const ProductCard = ({product, type}) => {
     tags,
     price = 3,
     distance = 10,
+    openStatus,
+    openStatusTimeDetail,
     image = "https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   } = product;
 
@@ -54,8 +56,21 @@ const ProductCard = ({product, type}) => {
               </div>
               <h4>{`(${reviewCounts})`}</h4>
               <h4>·</h4>
-              <h4 style={{color: "green"}}>{`Open`}</h4>
-              <h4>{`Until 10PM`}</h4>
+              {openStatus == "Open" && (
+                <>
+                  <h4 style={{color: "green"}}>{openStatus}</h4>
+                  <h4>Until {openStatusTimeDetail}</h4>
+                </>
+              )}
+              {openStatus == "Closed" && (
+                <>
+                  <h4 style={{color: "red"}}>{openStatus}</h4>
+                  <h4>Opens on {openStatusTimeDetail}</h4>
+                </>
+              )}
+              {openStatus == "Temporary Closed" && (
+                <h4 style={{color: "red"}}>{openStatus}</h4>
+              )}
             </div>
             <div className="line">
               <h4>{`${province}, ${amphure}, ${tambon}`}</h4>

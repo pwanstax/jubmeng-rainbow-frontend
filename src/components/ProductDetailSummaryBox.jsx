@@ -10,8 +10,21 @@ const ProductDetailSummaryBox = ({detail}) => {
         <RenderStars class="rating-star" rating={detail.rating} />
         <h4>{`(${detail.reviewCounts})`}</h4>
         <h4>·</h4>
-        <h4 style={{color: "green"}}>{detail.openStatus}</h4>
-        {detail.openStatus == "Open" && <h4>Until {detail.todayCloseAt}</h4>}
+        {detail.openStatus == "Open" && (
+          <>
+            <h4 style={{color: "green"}}>{detail.openStatus}</h4>
+            <h4>Until {detail.openStatusTimeDetail}</h4>
+          </>
+        )}
+        {detail.openStatus == "Closed" && (
+          <>
+            <h4 style={{color: "red"}}>{detail.openStatus}</h4>
+            <h4>Opens on {detail.openStatusTimeDetail}</h4>
+          </>
+        )}
+        {detail.openStatus == "Temporary Closed" && (
+          <h4 style={{color: "red"}}>{detail.openStatus}</h4>
+        )}
       </div>
 
       <div className="value">
