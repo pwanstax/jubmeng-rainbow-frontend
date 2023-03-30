@@ -9,19 +9,27 @@ const ProductCard = ({product, type}) => {
     province,
     amphure,
     tambon,
-    rating = 5,
-    reviewCounts = 0,
+    rating,
+    reviewCounts,
     tags,
     price = 3,
     distance = 10,
     openStatus,
     openStatusTimeDetail,
+    isSaved = false,
     image = "https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   } = product;
 
   const navigate = useNavigate();
 
+  const [onHoverCard, setOnHoverCard] = useState(false);
   const [onHoverTags, setOnHoverTags] = useState(false);
+
+  const [saved, setSaved] = useState(isSaved);
+  const handleSaved = (e) => {
+    e.preventDefault();
+    setSaved(!saved);
+  };
 
   const TagPopup = ({tags, onHoverTags}) => {
     return (
@@ -43,18 +51,42 @@ const ProductCard = ({product, type}) => {
 
   return (
     <Link to={`/${type}/${id}`} className="product-link">
-      <div className="product-card">
+      <div
+        className="product-card"
+        onMouseOver={() => setOnHoverCard(true)}
+        onMouseLeave={() => setOnHoverCard(false)}
+      >
         <div className="image-container">
           <img src={image} alt="" />
         </div>
         <div className="product-info">
           <div className="description">
-            <h2>{name}</h2>
+            <div className="head-line">
+              <h2>{name}</h2>
+              {!saved && onHoverCard && (
+                <i
+                  className="fa-regular fa-bookmark"
+                  onClick={handleSaved}
+                ></i>
+              )}
+              {saved && (
+                <i
+                  className="fa-solid fa-bookmark"
+                  onClick={handleSaved}
+                ></i>
+              )}
+            </div>
             <div className="line">
-              <div className="rating-star">
-                <RenderStars rating={rating} />
-              </div>
-              <h4>{`(${reviewCounts})`}</h4>
+              {reviewCounts === 0 ? (
+                <h4>No rating</h4>
+              ) : (
+                <>
+                  <div className="rating-star">
+                    <RenderStars rating={rating} />
+                  </div>
+                  <h4>{`(${reviewCounts})`}</h4>
+                </>
+              )}
               <h4>·</h4>
               {openStatus == "Open" && (
                 <>

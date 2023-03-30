@@ -53,7 +53,8 @@
           gap: 0.5rem;
           label {
             display: flex;
-            align-items: center;
+            align-items: baseline;
+            gap: 4px;
             input {
               accent-color: var(--primary-cl);
               &:hover {

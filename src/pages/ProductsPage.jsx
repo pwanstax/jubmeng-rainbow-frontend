@@ -15,35 +15,11 @@ const ProductsPage = ({variant}) => {
       headerLabel = "Places for pets";
   }
 
-  const services = [
-    "Veterinary",
-    "Outpatient Service",
-    "Vaccination",
-    "Spay and Neuter",
-    "Dental Care",
-    "Health Examination",
-    "Microchipping",
-    "Surgery",
-    "Mass Removal",
-    "Physiotherapy",
-    "Online Veterinary",
-    "Housecall Vet",
-    "Cat-friendly Clinic",
-    "Chinese Medicine",
-    "Acupuncture",
-  ];
-
-  const animals = ["cat", "dog", "bird", "lion", "fish", "tiger"];
-
   const sortByOptions = {
     highest_rating: "Highest rating",
     closest_location: "Closest location",
     highest_reviews: "Highest reviews",
   };
-
-  const servicesDict = services.reduce((a, v) => ({...a, [v]: false}), {});
-
-  const animalsDict = animals.reduce((a, v) => ({...a, [v]: false}), {});
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -65,31 +41,10 @@ const ProductsPage = ({variant}) => {
     searchParams.get("search") ?? ""
   );
 
-  const stateToQuery = (state) => {
-    return Object.keys(state)
-      .filter((k) => state[k] === true)
-      .join(",");
-  };
-
-  const queryToState = (query, initialState) => {
-    const state = {...initialState};
-    if (searchParams.get(query) !== null) {
-      const keys = searchParams.get(query).split(",");
-      keys.forEach((key, index) => {
-        if (key in state) {
-          state[key] = true;
-        }
-      });
-    }
-    return state;
-  };
-
-  const [petsSelected, setPetSelected] = useState(
-    queryToState("pets", animalsDict)
-  );
-  const [servicesSelected, setServiceSelected] = useState(
-    queryToState("services", servicesDict)
-  );
+  const [defaultPets, setDefaultPets] = useState({});
+  const [defaultServices, setDefaultServices] = useState({});
+  const [petsSelected, setPetSelected] = useState({});
+  const [servicesSelected, setServiceSelected] = useState({});
 
   const [showMorePets, setShowMorePets] = useState(false);
   const [showMoreServices, SetshowMoreServices] = useState(false);
@@ -115,34 +70,83 @@ const ProductsPage = ({variant}) => {
   const handleDefaultFilter = () => {
     setTextSearch("");
     setSortby("highest_rating");
-    setPetSelected(animalsDict);
-    setServiceSelected(servicesDict);
-  };
-
-  const fetchContent = async () => {
-    try {
-      const sortBy = searchParams.get("sort");
-      const petTags = Object.keys(petsSelected).filter(
-        (k) => petsSelected[k] === true
-      );
-      const serviceTags = Object.keys(servicesSelected).filter(
-        (k) => servicesSelected[k] === true
-      );
-      const res = await axios.get(`http://localhost:8080/products/${variant}`, {
-        params: {
-          sort: sortBy,
-          name: textSearch,
-          petTags: encodeURIComponent(JSON.stringify(petTags)),
-          serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
-        },
-      });
-      setproductList(res.data);
-    } catch (error) {
-      console.error(error);
-    }
+    setPetSelected(defaultPets);
+    setServiceSelected(defaultServices);
   };
 
   useEffect(() => {
+    const queryToState = (query, initialState) => {
+      const state = {...initialState};
+      if (searchParams.get(query) !== null) {
+        const keys = searchParams.get(query).split(",");
+        keys.forEach((key, index) => {
+          if (key in state) {
+            state[key] = true;
+          }
+        });
+      }
+      return state;
+    };
+
+    const fetchTags = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/products/tags/${variant}`
+        );
+        const petTags = res.data.petTags.reduce(
+          (a, v) => ({...a, [v]: false}),
+          {}
+        );
+        const serviceTags = res.data.serviceTags.reduce(
+          (a, v) => ({...a, [v]: false}),
+          {}
+        );
+        setDefaultPets(petTags);
+        setDefaultServices(serviceTags);
+        setPetSelected(queryToState("pets", petTags));
+        setServiceSelected(queryToState("services", serviceTags));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchTags();
+  }, []);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const sortBy = searchParams.get("sort");
+        const petTags = Object.keys(petsSelected).filter(
+          (k) => petsSelected[k] === true
+        );
+        const serviceTags = Object.keys(servicesSelected).filter(
+          (k) => servicesSelected[k] === true
+        );
+        const res = await axios.get(
+          `http://localhost:8080/products/${variant}`,
+          {
+            params: {
+              sort: sortBy,
+              name: textSearch,
+              petTags: encodeURIComponent(JSON.stringify(petTags)),
+              serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
+            },
+          }
+        );
+        setproductList(res.data);
+        // console.log(productList);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const stateToQuery = (state) => {
+      return Object.keys(state)
+        .filter((k) => state[k] === true)
+        .join(",");
+    };
+
     searchParams.set("pets", stateToQuery(petsSelected));
     searchParams.set("services", stateToQuery(servicesSelected));
     searchParams.set("search", textSearch);
@@ -157,6 +161,44 @@ const ProductsPage = ({variant}) => {
     searchParams,
     setSearchParams,
   ]);
+
+  // useEffect(() => {
+  //   let isSubscribed = true;
+  //   const fetchSaveForLater = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `http://localhost:8080/user/save-for-later`,
+  //         {
+  //           headers: {
+  //             user_id: sessionStorage.getItem("user_id"),
+  //           },
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       const {saveForLater, count} = res.data;
+
+  //       const saveForLaterList = saveForLater.map((product) => product._id);
+  //       console.log(saveForLaterList);
+  //       let productListIsSaved = productList;
+  //       productListIsSaved.map((product) => ({
+  //         ...product,
+  //         isSaved: saveForLaterList.includes(product.id),
+  //       }));
+  //       // console.log(productListIsSaved);
+  //       if (isSubscribed) {
+  //         setproductList(productListIsSaved);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchSaveForLater();
+  //   return () => {
+  //     isSubscribed = false;
+  //     // console.log(productList);
+  //   };
+  // }, [productList]);
 
   const TagChips = ({statesAndSetStates}) => {
     return (
@@ -184,21 +226,6 @@ const ProductsPage = ({variant}) => {
     );
   };
 
-  // const FindOnMap = () => {
-  //   return (
-  //     <div className="filter-box">
-  //       <h3>Find on map</h3>
-  //       <div className="map-container">
-  //         <button className="view-map-button">
-  //           <i class="fa-solid fa-location-dot"></i>
-  //           <h4>View</h4>
-  //         </button>
-  //         <img id="map" src="https://static.tacdn.com/img2/maps/img_map.png" />
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   const FilterBox = ({label, list, onChange, showMore, setShowMore}) => {
     return (
       <>
@@ -217,7 +244,7 @@ const ProductsPage = ({variant}) => {
                       checked={list[k]}
                       onChange={onChange}
                     />
-                    &nbsp;{k}
+                    <h4>{k}</h4>
                   </label>
                 );
             })}
