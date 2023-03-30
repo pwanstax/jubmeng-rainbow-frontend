@@ -74,51 +74,6 @@ const ProductsPage = ({variant}) => {
     setServiceSelected(defaultServices);
   };
 
-  const fetchContent = async () => {
-    try {
-      const sortBy = searchParams.get("sort");
-      const petTags = Object.keys(petsSelected).filter(
-        (k) => petsSelected[k] === true
-      );
-      const serviceTags = Object.keys(servicesSelected).filter(
-        (k) => servicesSelected[k] === true
-      );
-      const res = await axios.get(`http://localhost:8080/products/${variant}`, {
-        params: {
-          sort: sortBy,
-          name: textSearch,
-          petTags: encodeURIComponent(JSON.stringify(petTags)),
-          serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
-        },
-      });
-      setproductList(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const stateToQuery = (state) => {
-    return Object.keys(state)
-      .filter((k) => state[k] === true)
-      .join(",");
-  };
-
-  useEffect(() => {
-    searchParams.set("pets", stateToQuery(petsSelected));
-    searchParams.set("services", stateToQuery(servicesSelected));
-    searchParams.set("search", textSearch);
-    searchParams.set("sort", sortBy);
-    setSearchParams(searchParams, {replace: true});
-    fetchContent();
-  }, [
-    sortBy,
-    petsSelected,
-    servicesSelected,
-    textSearch,
-    searchParams,
-    setSearchParams,
-  ]);
-
   useEffect(() => {
     const queryToState = (query, initialState) => {
       const state = {...initialState};
@@ -157,6 +112,54 @@ const ProductsPage = ({variant}) => {
 
     fetchTags();
   }, []);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const sortBy = searchParams.get("sort");
+        const petTags = Object.keys(petsSelected).filter(
+          (k) => petsSelected[k] === true
+        );
+        const serviceTags = Object.keys(servicesSelected).filter(
+          (k) => servicesSelected[k] === true
+        );
+        const res = await axios.get(
+          `http://localhost:8080/products/${variant}`,
+          {
+            params: {
+              sort: sortBy,
+              name: textSearch,
+              petTags: encodeURIComponent(JSON.stringify(petTags)),
+              serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
+            },
+          }
+        );
+        setproductList(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const stateToQuery = (state) => {
+      return Object.keys(state)
+        .filter((k) => state[k] === true)
+        .join(",");
+    };
+
+    searchParams.set("pets", stateToQuery(petsSelected));
+    searchParams.set("services", stateToQuery(servicesSelected));
+    searchParams.set("search", textSearch);
+    searchParams.set("sort", sortBy);
+    setSearchParams(searchParams, {replace: true});
+    fetchContent();
+  }, [
+    sortBy,
+    petsSelected,
+    servicesSelected,
+    textSearch,
+    searchParams,
+    setSearchParams,
+  ]);
 
   const TagChips = ({statesAndSetStates}) => {
     return (
@@ -202,7 +205,7 @@ const ProductsPage = ({variant}) => {
                       checked={list[k]}
                       onChange={onChange}
                     />
-                    &nbsp;{k}
+                    <h4>{k}</h4>
                   </label>
                 );
             })}

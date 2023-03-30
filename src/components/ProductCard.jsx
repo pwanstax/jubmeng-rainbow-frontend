@@ -9,8 +9,8 @@ const ProductCard = ({product, type}) => {
     province,
     amphure,
     tambon,
-    rating = 5,
-    reviewCounts = 0,
+    rating,
+    reviewCounts,
     tags,
     price = 3,
     distance = 10,
@@ -40,7 +40,7 @@ const ProductCard = ({product, type}) => {
       </div>
     );
   };
-
+  console.log(product);
   return (
     <Link to={`/${type}/${id}`} className="product-link">
       <div className="product-card">
@@ -51,10 +51,16 @@ const ProductCard = ({product, type}) => {
           <div className="description">
             <h2>{name}</h2>
             <div className="line">
-              <div className="rating-star">
-                <RenderStars rating={rating} />
-              </div>
-              <h4>{`(${reviewCounts})`}</h4>
+              {reviewCounts === 0 ? (
+                <h4>No rating</h4>
+              ) : (
+                <>
+                  <div className="rating-star">
+                    <RenderStars rating={rating} />
+                  </div>
+                  <h4>{`(${reviewCounts})`}</h4>
+                </>
+              )}
               <h4>·</h4>
               {openStatus == "Open" && (
                 <>
