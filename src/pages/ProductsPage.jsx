@@ -135,6 +135,7 @@ const ProductsPage = ({variant}) => {
           }
         );
         setproductList(res.data);
+        // console.log(productList);
       } catch (error) {
         console.error(error);
       }
@@ -160,6 +161,44 @@ const ProductsPage = ({variant}) => {
     searchParams,
     setSearchParams,
   ]);
+
+  // useEffect(() => {
+  //   let isSubscribed = true;
+  //   const fetchSaveForLater = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `http://localhost:8080/user/save-for-later`,
+  //         {
+  //           headers: {
+  //             user_id: sessionStorage.getItem("user_id"),
+  //           },
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       const {saveForLater, count} = res.data;
+
+  //       const saveForLaterList = saveForLater.map((product) => product._id);
+  //       console.log(saveForLaterList);
+  //       let productListIsSaved = productList;
+  //       productListIsSaved.map((product) => ({
+  //         ...product,
+  //         isSaved: saveForLaterList.includes(product.id),
+  //       }));
+  //       // console.log(productListIsSaved);
+  //       if (isSubscribed) {
+  //         setproductList(productListIsSaved);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchSaveForLater();
+  //   return () => {
+  //     isSubscribed = false;
+  //     // console.log(productList);
+  //   };
+  // }, [productList]);
 
   const TagChips = ({statesAndSetStates}) => {
     return (

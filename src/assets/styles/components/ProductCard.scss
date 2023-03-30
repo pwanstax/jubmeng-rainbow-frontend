@@ -30,6 +30,14 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      .head-line {
+        display: flex;
+        justify-content: space-between;
+        i {
+          font-size: 1.25rem;
+          color: var(--primary-cl);
+        }
+      }
       .line {
         display: flex;
         align-items: center;
