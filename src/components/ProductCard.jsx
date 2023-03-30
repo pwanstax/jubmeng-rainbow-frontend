@@ -63,9 +63,15 @@ const ProductCard = ({product, type}) => {
           <div className="description">
             <div className="head-line">
               <h2>{name}</h2>
-              {onHoverCard && (
+              {!saved && onHoverCard && (
                 <i
-                  className={`fa-${saved ? `solid` : `regular`} fa-bookmark`}
+                  className="fa-regular fa-bookmark"
+                  onClick={handleSaved}
+                ></i>
+              )}
+              {saved && (
+                <i
+                  className="fa-solid fa-bookmark"
                   onClick={handleSaved}
                 ></i>
               )}
