@@ -66,6 +66,7 @@ const PetModalFilter = ({showModal, setShowModal, pickService}) => {
   };
   const handleClick = () => {
     const petsString = petInputList.join("%2C");
+    console.log(`/${pickService}?pets=${petsString}`);
     navigate(`/${pickService}?pets=${petsString}`);
   };
   document.addEventListener("click", function (event) {
@@ -90,13 +91,9 @@ const PetModalFilter = ({showModal, setShowModal, pickService}) => {
               {pets.map((pet) => (
                 <div
                   key={pet.name}
-                  onClick={() =>
-                    toggleList(petInputList, pet.name.toLowerCase())
-                  }
+                  onClick={() => toggleList(petInputList, pet.name)}
                   className={`pet-item ${
-                    petInputList.includes(pet.name.toLowerCase())
-                      ? "selected"
-                      : ""
+                    petInputList.includes(pet.name) ? "selected" : ""
                   }`}
                 >
                   <i className={`fa-solid ${pet.icon}`}></i>

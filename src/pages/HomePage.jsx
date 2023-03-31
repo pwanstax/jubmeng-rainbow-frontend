@@ -10,9 +10,9 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [pickService, setService] = useState("");
   const contents = [
-    {topic: "Now trending", icon: "paw", type: "clinic"},
-    {topic: "Places-to-go", icon: "dog", type: "service"},
-    {topic: "Veterinary Clinics", icon: "cat", type: "petfriendly"},
+    {topic: "Popular clinics", icon: "paw", type: "clinic"},
+    {topic: "Trending Services", icon: "dog", type: "service"},
+    {topic: "Place to hang out", icon: "cat", type: "petfriendly"},
   ];
 
   const handleClick = (service) => {
