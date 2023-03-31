@@ -22,7 +22,7 @@ const BasicInfoForm = ({step, setStep, data, setData}) => {
               const last = values.phones[i].charAt(values.phones[i].length - 1);
               if (
                 !last.match(/^(\d)$/) ||
-                (values.phones[i].length == 1 && last != "0")
+                (values.phones[i].length === 1 && last !== "0")
               ) {
                 values.phones[i] = values.phones[i].slice(
                   0,

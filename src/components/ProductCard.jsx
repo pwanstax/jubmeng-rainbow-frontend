@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import RenderStars from "../utils/RenderStars";
 const ProductCard = ({product, type}) => {
   const {
     id,
     name,
-    address,
+    // address,
     province,
     amphure,
     tambon,
@@ -19,8 +19,6 @@ const ProductCard = ({product, type}) => {
     isSaved = false,
     image = "https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   } = product;
-
-  const navigate = useNavigate();
 
   const [onHoverCard, setOnHoverCard] = useState(false);
   const [onHoverTags, setOnHoverTags] = useState(false);
@@ -64,16 +62,10 @@ const ProductCard = ({product, type}) => {
             <div className="head-line">
               <h2>{name}</h2>
               {!saved && onHoverCard && (
-                <i
-                  className="fa-regular fa-bookmark"
-                  onClick={handleSaved}
-                ></i>
+                <i className="fa-regular fa-bookmark" onClick={handleSaved}></i>
               )}
               {saved && (
-                <i
-                  className="fa-solid fa-bookmark"
-                  onClick={handleSaved}
-                ></i>
+                <i className="fa-solid fa-bookmark" onClick={handleSaved}></i>
               )}
             </div>
             <div className="line">
@@ -88,19 +80,19 @@ const ProductCard = ({product, type}) => {
                 </>
               )}
               <h4>·</h4>
-              {openStatus == "Open" && (
+              {openStatus === "Open" && (
                 <>
                   <h4 style={{color: "green"}}>{openStatus}</h4>
                   <h4>Until {openStatusTimeDetail}</h4>
                 </>
               )}
-              {openStatus == "Closed" && (
+              {openStatus === "Closed" && (
                 <>
                   <h4 style={{color: "red"}}>{openStatus}</h4>
                   <h4>Opens on {openStatusTimeDetail}</h4>
                 </>
               )}
-              {openStatus == "Temporary Closed" && (
+              {openStatus === "Temporary Closed" && (
                 <h4 style={{color: "red"}}>{openStatus}</h4>
               )}
             </div>
@@ -121,7 +113,7 @@ const ProductCard = ({product, type}) => {
                     <div className="tag" key={`${name}${service.name}${i}`}>
                       {/* {<i class={service.class}></i>} */}
                       <h4>{`${service.name}`}</h4>
-                      {i == 2 && tags.length > 3 && (
+                      {i === 2 && tags.length > 3 && (
                         <>
                           <h4
                             className="additional-service"
@@ -138,6 +130,7 @@ const ProductCard = ({product, type}) => {
                     </div>
                   );
                 }
+                return <></>;
               })}
           </div>
         </div>

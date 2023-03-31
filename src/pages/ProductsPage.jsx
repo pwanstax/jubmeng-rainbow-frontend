@@ -9,10 +9,15 @@ const ProductsPage = ({variant}) => {
   switch (variant) {
     case "clinic":
       headerLabel = "Clinics for pets";
+      break;
     case "service":
       headerLabel = "Services for pets";
+      break;
     case "petfriendly":
       headerLabel = "Places for pets";
+      break;
+    default:
+      headerLabel = "Clinics for pets";
   }
 
   const sortByOptions = {
@@ -50,7 +55,8 @@ const ProductsPage = ({variant}) => {
   const [showMoreServices, SetshowMoreServices] = useState(false);
 
   const handleOnChangePets = (event) => {
-    const {name, checked, type} = event.target;
+    // const {name, checked, type} = event.target;
+    const {name, checked} = event.target;
     setPetSelected({...petsSelected, [name]: checked});
   };
 
@@ -111,6 +117,7 @@ const ProductsPage = ({variant}) => {
     };
 
     fetchTags();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -153,6 +160,7 @@ const ProductsPage = ({variant}) => {
     searchParams.set("sort", sortBy);
     setSearchParams(searchParams, {replace: true});
     fetchContent();
+    // eslint-disable-next-line
   }, [
     sortBy,
     petsSelected,
@@ -233,7 +241,7 @@ const ProductsPage = ({variant}) => {
           <h3>{label}</h3>
           <div className="option-container">
             {Object.keys(list).map((k, i) => {
-              if (i < 4 || showMore)
+              if (i < 4 || showMore) {
                 return (
                   <label key={`label${label}${k}`}>
                     <input
@@ -247,6 +255,8 @@ const ProductsPage = ({variant}) => {
                     <h4>{k}</h4>
                   </label>
                 );
+              }
+              return <></>;
             })}
             {Object.keys(list).length > 4 && (
               <button onClick={() => setShowMore(!showMore)}>
