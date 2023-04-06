@@ -5,7 +5,7 @@ const HomeProductCard = ({id, name, locationDescription, image, tags}) => {
   const chip = {price: "$$", rating: "4.5", distance: "1.2 km"};
 
   return (
-    <Link to={`detail/${id}`}>
+    <Link to={`/product/detail/${id}`}>
       <div className="card-container">
         <div className="front">
           <img src={image} alt="" />

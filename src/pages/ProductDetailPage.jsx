@@ -35,7 +35,6 @@ const ProductDetailPage = ({name, locationDescription, image, tags}) => {
     const fetchContent = async () => {
       try {
         const res = await axios.get(`http://localhost:8080/product/${id}`);
-        //console.log(res.data);
         setDetail(res.data);
       } catch (error) {
         console.error(error);
@@ -66,7 +65,7 @@ const ProductDetailPage = ({name, locationDescription, image, tags}) => {
           ) : (
             <></>
           )}
-          <ProductDetailRatingBox id={id} />
+          <ProductDetailRatingBox id={id} overallRating={detail.rating} />
         </div>
       )}
     </div>

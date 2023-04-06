@@ -7,9 +7,13 @@ const ProductDetailSummaryBox = ({detail}) => {
     <div className="product-detail-summary-box">
       <h1 className="name">{detail.name}</h1>
       <div className="line">
-        <RenderStars class="rating-star" rating={detail.rating} />
-        <h4>{`(${detail.reviewCounts})`}</h4>
-        <h4>·</h4>
+        {detail.reviewCounts > 0 && (
+          <>
+            <RenderStars class="rating-star" rating={detail.rating} />
+            <h4>{`(${detail.reviewCounts})`}</h4>
+            <h4>·</h4>
+          </>
+        )}
         {detail.openStatus == "Open" && (
           <>
             <h4 style={{color: "green"}}>{detail.openStatus}</h4>
