@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import RenderStars from "../utils/RenderStars";
+import axios from "axios";
+
 const ProductCard = ({product}) => {
   const {
     id,
@@ -24,8 +26,30 @@ const ProductCard = ({product}) => {
   const [onHoverTags, setOnHoverTags] = useState(false);
 
   const [saved, setSaved] = useState(isSaved);
-  const handleSaved = (e) => {
+  const handleSaved = async (e) => {
     e.preventDefault();
+    try {
+      if (!saved) {
+        await axios.patch(
+          `http://localhost:8080/user/save-for-later`,
+          {
+            productId: id,
+          },
+          {
+            headers: {user_id: sessionStorage.getItem("user_id")},
+            withCredentials: true,
+          }
+        );
+      } else {
+        await axios.delete(`http://localhost:8080/user/save-for-later`, {
+          headers: {user_id: sessionStorage.getItem("user_id")},
+          data: {productId: id},
+          withCredentials: true,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
     setSaved(!saved);
   };
 

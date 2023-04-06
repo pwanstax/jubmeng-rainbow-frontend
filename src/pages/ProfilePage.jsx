@@ -3,6 +3,7 @@ import {useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import MyProfile from "../components/MyProfile";
 import MyProduct from "../components/MyProduct";
+import SaveForLater from "../components/SaveForLater";
 
 const ProfilePage = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -137,15 +138,8 @@ const ProfilePage = () => {
               imageFile={imageFile}
             />
           )}
-          {menu === "product" && (
-            <MyProduct
-              userInfo={userInfo}
-              setUserInfo={setUserInfo}
-              isEdit={isEdit}
-              setIsEdit={setIsEdit}
-              imageFile={imageFile}
-            />
-          )}
+          {menu === "product" && <MyProduct />}
+          {menu === "favorite" && <SaveForLater />}
         </div>
       </div>
     </div>

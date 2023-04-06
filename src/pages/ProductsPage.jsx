@@ -140,7 +140,11 @@ const ProductsPage = () => {
             petTags: encodeURIComponent(JSON.stringify(petTags)),
             serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
           },
+          headers: {
+            user_id: sessionStorage.getItem("user_id"),
+          },
         });
+
         setproductList(res.data);
         // console.log(productList);
       } catch (error) {
