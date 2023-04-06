@@ -29,7 +29,6 @@ const MyProduct = () => {
       ) : (
         <div className="myproduct-wraper">
           {myProducts.map((product, i) => {
-            console.log(product);
             return (
               <div className="each-product" key={i}>
                 <ProductCard product={product} />
