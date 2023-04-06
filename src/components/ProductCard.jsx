@@ -48,7 +48,7 @@ const ProductCard = ({product}) => {
   };
 
   return (
-    <Link to={`detail/${id}`} className="product-link">
+    <Link to={`../product/detail/${id}`} className="product-link">
       <div
         className="product-card"
         onMouseOver={() => setOnHoverCard(true)}
