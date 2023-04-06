@@ -10,9 +10,9 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [pickService, setService] = useState("");
   const contents = [
-    {topic: "Popular clinics", icon: "paw", type: "clinic"},
-    {topic: "Trending Services", icon: "dog", type: "service"},
-    {topic: "Place to hang out", icon: "cat", type: "petfriendly"},
+    {topic: "Popular Place", icon: "paw"},
+    {topic: "Clinic near you", icon: "dog"},
+    {topic: "Place to hang out", icon: "cat"},
   ];
 
   const handleClick = (service) => {
@@ -39,7 +39,6 @@ const HomePage = () => {
             <ContentSlide
               topic={content.topic}
               icon={content.icon}
-              type={content.type}
               searchQuery={searchQuery}
             />
           </div>

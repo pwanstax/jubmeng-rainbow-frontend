@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import RenderStars from "../utils/RenderStars";
-const ProductCard = ({product, type}) => {
+const ProductCard = ({product}) => {
   const {
     id,
     name,
@@ -48,7 +48,7 @@ const ProductCard = ({product, type}) => {
   };
 
   return (
-    <Link to={`/${type}/${id}`} className="product-link">
+    <Link to={`detail/${id}`} className="product-link">
       <div
         className="product-card"
         onMouseOver={() => setOnHoverCard(true)}

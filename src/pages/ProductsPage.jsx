@@ -4,21 +4,21 @@ import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FindOnMap from "../utils/FindOnMap";
 
-const ProductsPage = ({variant}) => {
+const ProductsPage = () => {
   let headerLabel;
-  switch (variant) {
-    case "clinic":
-      headerLabel = "Clinics for pets";
-      break;
-    case "service":
-      headerLabel = "Services for pets";
-      break;
-    case "petfriendly":
-      headerLabel = "Places for pets";
-      break;
-    default:
-      headerLabel = "Clinics for pets";
-  }
+  // switch (variant) {
+  //   case "clinic":
+  //     headerLabel = "Clinics for pets";
+  //     break;
+  //   case "service":
+  //     headerLabel = "Services for pets";
+  //     break;
+  //   case "petfriendly":
+  //     headerLabel = "Places for pets";
+  //     break;
+  //   default:
+  //     headerLabel = "Clinics for pets";
+  // }
 
   const sortByOptions = {
     highest_rating: "Highest rating",
@@ -96,14 +96,17 @@ const ProductsPage = ({variant}) => {
 
     const fetchTags = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:8080/products/tags/${variant}`
-        );
+        const res = await axios.get(`http://localhost:8080/products/tags`);
         const petTags = res.data.petTags.reduce(
           (a, v) => ({...a, [v]: false}),
           {}
         );
-        const serviceTags = res.data.serviceTags.reduce(
+        let serviceTags = await [
+          ...res.data.serviceTags["clinic"],
+          ...res.data.serviceTags["service"],
+          ...res.data.serviceTags["petfriendly"],
+        ];
+        serviceTags = await serviceTags.reduce(
           (a, v) => ({...a, [v]: false}),
           {}
         );
@@ -130,17 +133,14 @@ const ProductsPage = ({variant}) => {
         const serviceTags = Object.keys(servicesSelected).filter(
           (k) => servicesSelected[k] === true
         );
-        const res = await axios.get(
-          `http://localhost:8080/products/${variant}`,
-          {
-            params: {
-              sort: sortBy,
-              name: textSearch,
-              petTags: encodeURIComponent(JSON.stringify(petTags)),
-              serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
-            },
-          }
-        );
+        const res = await axios.get(`http://localhost:8080/products`, {
+          params: {
+            sort: sortBy,
+            name: textSearch,
+            petTags: encodeURIComponent(JSON.stringify(petTags)),
+            serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
+          },
+        });
         setproductList(res.data);
         // console.log(productList);
       } catch (error) {
@@ -341,7 +341,7 @@ const ProductsPage = ({variant}) => {
           />
           <div className="result-container">
             {productList.map((product, i) => {
-              return <ProductCard product={product} key={i} type={variant} />;
+              return <ProductCard product={product} key={i} />;
             })}
           </div>
         </div>

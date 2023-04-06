@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: calc(32.2vw - 134px);
+  margin-top: calc(32.2vw - 60px);
   margin-bottom: 50px;
   .product-search {
     border: 1px solid transparent;
     background-color: var(--white-cl);
     border-radius: 50px;
-    width: 707px;
+    width: 650px;
     height: 54px;
     display: flex;
     align-items: center;
@@ -25,6 +25,7 @@
       font-size: 1.5rem;
       color: var(--primary-cl);
     }
+
     input {
       width: 80%;
       height: 60%;
@@ -38,23 +39,33 @@
     }
   }
   .product-menu {
-    display: flex;
-    gap: 37px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background-color: var(--white-cl);
+    border-radius: 18px;
+    display: flex;
+    hr {
+      margin: 24px 0;
+    }
+    .last {
+      padding: 0 25px !important;
+    }
     .product-button {
-      position: relative;
-      width: 211px;
-      height: 102px;
-      background-color: var(--white-cl);
-      border: 2px solid var(--primary-cl);
-      border-radius: 12px;
-
+      padding: 0 40px;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      .text {
+        display: flex;
+        flex-direction: column;
+        > div {
+          font-size: 14px;
+          color: #5e5e5e;
+        }
+      }
       h2 {
-        position: absolute;
-        width: 80px;
-        height: 28px;
-        left: calc(50% - 80px / 2 - 51.5px);
-        top: calc(50% - 28px / 2 - 14px);
+        font-weight: 600 !important;
         display: flex;
         align-items: center;
         text-align: left;
@@ -63,19 +74,34 @@
       i {
         color: var(--primary-cl);
         font-size: 2rem;
-        position: absolute;
-        left: 70%;
-        top: 50%;
       }
-      transition: background-color 0.15s ease-in-out;
+      .search {
+        justify-content: center;
+      }
+      transition: background-color 0.15s ease-in-out, scale 0.15s ease-in-out;
+      &.pet {
+        border-top-left-radius: 20px !important;
+        border-bottom-left-radius: 20px !important;
+      }
+      &.last {
+        border-top-right-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+      }
       &:hover {
+        border-radius: 3px;
         cursor: pointer;
         background-color: var(--primary-cl);
+        scale: 1.05;
         h2 {
           color: var(--white-cl);
         }
         i {
           color: var(--white-cl);
+        }
+        .text {
+          > div {
+            color: white;
+          }
         }
       }
     }

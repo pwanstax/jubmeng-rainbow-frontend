@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import RenderStars from "../utils/RenderStars";
 
-const ProductDetailRatingBox = ({type, id}) => {
+const ProductDetailRatingBox = ({id}) => {
   const filters = [
     {name: "Highest Rating", value: "highest_rating"},
     {name: "Lowest Rating", value: "lowest_rating"},
@@ -14,7 +14,7 @@ const ProductDetailRatingBox = ({type, id}) => {
   const fetchCarReview = async (sort) => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/review/${type}?id=${id}&sort=${sort}`
+        `http://localhost:8080/review/${id}?sort=${sort}`
       ); // change path to backend service
       //console.log(res.data.reviews);
       setReviews(res.data.reviews);
@@ -59,7 +59,7 @@ const ProductDetailRatingBox = ({type, id}) => {
               return (
                 <div className="review">
                   <div className="container user">
-                    <img src={review.reviewerImg} alt="Reviewer Picture" />
+                    <img src={review.reviewerImg} alt="Reviewer" />
                     <h4>{review.reviewer}</h4>
                     <RenderStars class="rating-star" rating={review.rating} />
                   </div>

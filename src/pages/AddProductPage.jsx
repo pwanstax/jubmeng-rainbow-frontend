@@ -7,7 +7,6 @@ import TagsAndOpenHoursForm from "../components/TagsAndOpenHoursForm";
 import ImagesForm from "../components/ImagesForm";
 const AddProductPage = () => {
   const step1 = {
-    type: "",
     name: "",
     phones: [],
     facebook: "",
@@ -50,9 +49,9 @@ const AddProductPage = () => {
     formData.append("owner", sessionStorage.getItem("username"));
 
     for (const [key, value] of Object.entries(dataStep1)) {
-      if (key == "type" || !value) {
+      if (!value) {
         continue;
-      } else if (key == "phones") {
+      } else if (key === "phones") {
         for (const e of value) {
           formData.append(key, e);
         }
@@ -76,7 +75,7 @@ const AddProductPage = () => {
             })
           );
         }
-      } else if (key == "prices") {
+      } else if (key === "prices") {
         for (const e of value) {
           formData.append(key, JSON.stringify(e));
         }
@@ -96,19 +95,16 @@ const AddProductPage = () => {
 
     return formData;
   };
+
   useEffect(() => {
     const sendData = async (formData) => {
       try {
-        await axios.post(
-          `http://localhost:8080/product/${dataStep1.type}`,
-          formData,
-          {
-            withCredentials: true,
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axios.post("http://localhost:8080/product", formData, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         window.location.assign("/");
       } catch (error) {
         console.log("error", error);
@@ -148,7 +144,6 @@ const AddProductPage = () => {
           <TagsAndOpenHoursForm
             data={dataStep3}
             setData={setDataStep3}
-            type={dataStep1.type}
             step={step}
             setStep={setStep}
           />

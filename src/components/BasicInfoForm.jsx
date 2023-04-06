@@ -7,9 +7,6 @@ const BasicInfoForm = ({step, setStep, data, setData}) => {
         initialValues={data}
         validate={(values) => {
           const errors = {};
-          if (!values.type) {
-            errors.type = "Please select the type of your merchant.";
-          }
           if (!values.name.trim()) {
             errors.name = "Please enter your merchant's name.";
           }
@@ -49,17 +46,6 @@ const BasicInfoForm = ({step, setStep, data, setData}) => {
         render={({values, isSubmitting}) => (
           <div>
             <Form className="form">
-              <h4 className="h4">
-                Merchant Type<span className="required"> *</span>
-              </h4>
-              <Field as="select" name="type">
-                <option disabled hidden></option>
-                <option value="clinic">Clinic</option>
-                <option value="service">Pet Service</option>
-                <option value="petfriendly">Friendly place</option>
-              </Field>
-              <ErrorMessage className="error" name="type" component="div" />
-
               <h4 className="h4">
                 Merchant Name<span className="required"> *</span>
               </h4>

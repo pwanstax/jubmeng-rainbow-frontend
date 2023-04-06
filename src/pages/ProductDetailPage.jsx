@@ -8,7 +8,8 @@ import ProductDetailPriceBox from "../components/ProductDetailPriceBox";
 import ProductDetailRatingBox from "../components/ProductDetailRatingBox";
 
 const ProductDetailPage = ({name, locationDescription, image, tags}) => {
-  const {type, id} = useParams();
+  const {id} = useParams();
+
   // const demo = {
   //   owner: "",
   //   name: "",
@@ -33,9 +34,7 @@ const ProductDetailPage = ({name, locationDescription, image, tags}) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:8080/product/${type}/${id}`
-        );
+        const res = await axios.get(`http://localhost:8080/product/${id}`);
         //console.log(res.data);
         setDetail(res.data);
       } catch (error) {
@@ -67,7 +66,7 @@ const ProductDetailPage = ({name, locationDescription, image, tags}) => {
           ) : (
             <></>
           )}
-          <ProductDetailRatingBox type={type} id={id} />
+          <ProductDetailRatingBox id={id} />
         </div>
       )}
     </div>

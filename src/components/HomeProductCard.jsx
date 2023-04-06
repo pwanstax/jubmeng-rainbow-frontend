@@ -1,18 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const HomeProductCard = ({
-  id,
-  name,
-  locationDescription,
-  image,
-  tags,
-  type,
-}) => {
+const HomeProductCard = ({id, name, locationDescription, image, tags}) => {
   const chip = {price: "$$", rating: "4.5", distance: "1.2 km"};
 
   return (
-    <Link to={`/${type}/${id}`}>
+    <Link to={`detail/${id}`}>
       <div className="card-container">
         <div className="front">
           <img src={image} alt="" />

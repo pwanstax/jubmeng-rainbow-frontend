@@ -32,7 +32,7 @@ const MyProduct = () => {
             console.log(product);
             return (
               <div className="each-product" key={i}>
-                <ProductCard product={product} type={product.type} />
+                <ProductCard product={product} />
               </div>
             );
           })}

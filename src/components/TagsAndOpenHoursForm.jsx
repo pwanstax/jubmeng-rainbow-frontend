@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Formik, Form, Field, FieldArray, ErrorMessage} from "formik";
 import axios from "axios";
 
-const TagsAndOpenHoursForm = ({data, setData, type, step, setStep}) => {
+const TagsAndOpenHoursForm = ({data, setData, step, setStep}) => {
   const days = [
     {key: "mon", value: "Monday"},
     {key: "tue", value: "Tuesday"},
@@ -16,10 +16,12 @@ const TagsAndOpenHoursForm = ({data, setData, type, step, setStep}) => {
   const [animals, setAnimals] = useState([]);
   const fetchContent = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8080/products/tags/${type}`
-      );
-      setServices(res.data.serviceTags);
+      const res = await axios.get(`http://localhost:8080/products/tags`);
+      await setServices([
+        ...res.data.serviceTags["clinic"],
+        ...res.data.serviceTags["service"],
+        ...res.data.serviceTags["petfriendly"],
+      ]);
       setAnimals(res.data.petTags);
     } catch (error) {
       console.log(error);
