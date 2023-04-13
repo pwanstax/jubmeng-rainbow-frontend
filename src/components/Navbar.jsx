@@ -15,8 +15,8 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     sessionStorage.clear();
-    const res = await axios.post(
-      `http://localhost:8080/user/logout`,
+    await axios.post(
+      `http://localhost:8080/auth/logout`,
       {
         cookie_name: "auth",
       },
@@ -25,7 +25,6 @@ const Navbar = () => {
       }
     ); // change path to backend service
 
-    // alert(res.data);
     window.location.assign("/");
   };
 
