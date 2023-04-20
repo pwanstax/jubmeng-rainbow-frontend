@@ -3,23 +3,10 @@ import React, {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import FindOnMap from "../utils/FindOnMap";
+import ProductFilterBox from "../components/ProductFilterBox";
+import TagChips from "../components/TagChips";
 
 const ProductsPage = () => {
-  let headerLabel;
-  // switch (variant) {
-  //   case "clinic":
-  //     headerLabel = "Clinics for pets";
-  //     break;
-  //   case "service":
-  //     headerLabel = "Services for pets";
-  //     break;
-  //   case "petfriendly":
-  //     headerLabel = "Places for pets";
-  //     break;
-  //   default:
-  //     headerLabel = "Clinics for pets";
-  // }
-
   const sortByOptions = {
     highest_rating: "Highest rating",
     closest_location: "Closest location",
@@ -41,7 +28,6 @@ const ProductsPage = () => {
     }
     return initialSortBy;
   });
-
   const [textSearch, setTextSearch] = useState(
     searchParams.get("search") ?? ""
   );
@@ -51,18 +37,31 @@ const ProductsPage = () => {
   const [petsSelected, setPetSelected] = useState({});
   const [servicesSelected, setServiceSelected] = useState({});
 
-  const [showMorePets, setShowMorePets] = useState(false);
-  const [showMoreServices, SetshowMoreServices] = useState(false);
-
   const handleOnChangePets = (event) => {
-    // const {name, checked, type} = event.target;
     const {name, checked} = event.target;
     setPetSelected({...petsSelected, [name]: checked});
   };
 
   const handleOnChangeServices = (event) => {
-    const {name, checked} = event.target;
-    setServiceSelected({...servicesSelected, [name]: checked});
+    const {id, checked} = event.target;
+    const [type, name] = id.split("-");
+    setServiceSelected((prevState) => ({
+      ...prevState,
+      [type]: {...prevState[type], [name]: checked},
+    }));
+  };
+
+  const handleOnChangePetTag = (event) => {
+    const {value} = event.target;
+    setPetSelected({...petsSelected, [value]: false});
+  };
+  
+  const handleOnChangeServiceTag = (type) => (event) => {
+    const {value} = event.target;
+    setServiceSelected((prevState) => ({
+      ...prevState,
+      [type]: {...prevState[type], [value]: false},
+    }));
   };
 
   const handleOnChangeSortBy = (event) => {
@@ -94,26 +93,36 @@ const ProductsPage = () => {
       return state;
     };
 
+    const arrayToObject = (array, value) => {
+      return array.reduce((a, v) => ({...a, [v]: value}), {});
+    };
+
     const fetchTags = async () => {
       try {
         const res = await axios.get(`http://localhost:8080/products/tags`);
-        const petTags = res.data.petTags.reduce(
-          (a, v) => ({...a, [v]: false}),
-          {}
-        );
-        let serviceTags = await [
-          ...res.data.serviceTags["clinic"],
-          ...res.data.serviceTags["service"],
-          ...res.data.serviceTags["petfriendly"],
-        ];
-        serviceTags = await serviceTags.reduce(
-          (a, v) => ({...a, [v]: false}),
-          {}
-        );
+
+        const petTags = arrayToObject(res.data.petTags, false);
+        let serviceTags = {};
+        Object.keys(res.data.serviceTags).map((type, i) => {
+          serviceTags[type] = arrayToObject(res.data.serviceTags[type], false);
+        });
+        // let serviceTags = await [
+        //   ...res.data.serviceTags["clinic"],
+        //   ...res.data.serviceTags["service"],
+        //   ...res.data.serviceTags["petfriendly"],
+        // ];
+        // serviceTags = await serviceTags.reduce(
+        //   (a, v) => ({...a, [v]: false}),
+        //   {}
+        // );
         setDefaultPets(petTags);
         setDefaultServices(serviceTags);
         setPetSelected(queryToState("pets", petTags));
-        setServiceSelected(queryToState("services", serviceTags));
+        const initialSelected = Object.keys(serviceTags).reduce(
+          (a, v) => ({...a, [v]: queryToState(v, serviceTags[v])}),
+          {}
+        );
+        setServiceSelected(initialSelected);
       } catch (error) {
         console.log(error);
       }
@@ -124,14 +133,20 @@ const ProductsPage = () => {
   }, []);
 
   useEffect(() => {
+    const objectToArray = (object) => {
+      return Object.keys(object).filter((key) => object[key] === true);
+    };
+
     const fetchContent = async () => {
       try {
         const sortBy = searchParams.get("sort");
-        const petTags = Object.keys(petsSelected).filter(
-          (k) => petsSelected[k] === true
-        );
-        const serviceTags = Object.keys(servicesSelected).filter(
-          (k) => servicesSelected[k] === true
+        const petTags = objectToArray(petsSelected);
+        // const serviceTags = Object.keys(servicesSelected).filter(
+        //   (k) => servicesSelected[k] === true
+        // );
+        const serviceTags = Object.keys(servicesSelected).reduce(
+          (a, v) => [...a, ...objectToArray(servicesSelected[v])],
+          []
         );
         const res = await axios.get(`http://localhost:8080/products`, {
           params: {
@@ -146,147 +161,26 @@ const ProductsPage = () => {
         });
 
         setproductList(res.data);
-        // console.log(productList);
       } catch (error) {
         console.error(error);
       }
     };
 
-    const stateToQuery = (state) => {
-      return Object.keys(state)
-        .filter((k) => state[k] === true)
-        .join(",");
-    };
-
-    searchParams.set("pets", stateToQuery(petsSelected));
-    searchParams.set("services", stateToQuery(servicesSelected));
+    searchParams.set("pets", objectToArray(petsSelected).join(","));
+    for (const type in servicesSelected) {
+      searchParams.set(type, objectToArray(servicesSelected[type]).join(","));
+    }
     searchParams.set("search", textSearch);
     searchParams.set("sort", sortBy);
     setSearchParams(searchParams, {replace: true});
     fetchContent();
     // eslint-disable-next-line
-  }, [
-    sortBy,
-    petsSelected,
-    servicesSelected,
-    textSearch,
-    searchParams,
-    setSearchParams,
-  ]);
-
-  // useEffect(() => {
-  //   let isSubscribed = true;
-  //   const fetchSaveForLater = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `http://localhost:8080/user/save-for-later`,
-  //         {
-  //           headers: {
-  //             user_id: sessionStorage.getItem("user_id"),
-  //           },
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       const {saveForLater, count} = res.data;
-
-  //       const saveForLaterList = saveForLater.map((product) => product._id);
-  //       console.log(saveForLaterList);
-  //       let productListIsSaved = productList;
-  //       productListIsSaved.map((product) => ({
-  //         ...product,
-  //         isSaved: saveForLaterList.includes(product.id),
-  //       }));
-  //       // console.log(productListIsSaved);
-  //       if (isSubscribed) {
-  //         setproductList(productListIsSaved);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchSaveForLater();
-  //   return () => {
-  //     isSubscribed = false;
-  //     // console.log(productList);
-  //   };
-  // }, [productList]);
-
-  const TagChips = ({statesAndSetStates}) => {
-    return (
-      <div className="tags-chip-container">
-        {statesAndSetStates.map(([state, setState]) => {
-          return Object.keys(state).map((name, i) => {
-            return (
-              state[name] && (
-                <button
-                  className="tag-chip"
-                  key={`tag-chip-${name}`}
-                  name={name}
-                  onClick={setState}
-                >
-                  <span class="pointer-events-none">
-                    {name}&nbsp;
-                    <i class="fa-solid fa-xmark"></i>
-                  </span>
-                </button>
-              )
-            );
-          });
-        })}
-      </div>
-    );
-  };
-
-  const FilterBox = ({label, list, onChange, showMore, setShowMore}) => {
-    return (
-      <>
-        <div className="filter-box">
-          <h3>{label}</h3>
-          <div className="option-container">
-            {Object.keys(list).map((k, i) => {
-              if (i < 4 || showMore) {
-                return (
-                  <label key={`label${label}${k}`}>
-                    <input
-                      type="checkbox"
-                      id={`checkbox${label}${k}`}
-                      name={k}
-                      value={list[k]}
-                      checked={list[k]}
-                      onChange={onChange}
-                    />
-                    <h4>{k}</h4>
-                  </label>
-                );
-              }
-              return <></>;
-            })}
-            {Object.keys(list).length > 4 && (
-              <button onClick={() => setShowMore(!showMore)}>
-                {showMore ? (
-                  <>
-                    <UpIconSvg />
-                    <h4>Show less</h4>
-                  </>
-                ) : (
-                  <>
-                    <DownIconSvg />
-                    <h4>Show more</h4>
-                  </>
-                )}
-              </button>
-            )}
-          </div>
-        </div>
-      </>
-    );
-  };
+  }, [sortBy, petsSelected, servicesSelected, textSearch, searchParams]);
 
   return (
     <div className="product-page-container">
       <div className="header">
-        <h1>{headerLabel}</h1>
+        <h1>All Products</h1>
       </div>
       <div className="content-container">
         <div className="filter-container">
@@ -294,20 +188,19 @@ const ProductsPage = () => {
             <h3>Find on map</h3>
             <FindOnMap />
           </div>
-          <FilterBox
-            label={"Type of pets"}
+          <ProductFilterBox
+            type={"pets"}
             list={petsSelected}
             onChange={handleOnChangePets}
-            showMore={showMorePets}
-            setShowMore={setShowMorePets}
           />
-          <FilterBox
-            label={"Type of services"}
-            list={servicesSelected}
-            onChange={handleOnChangeServices}
-            showMore={showMoreServices}
-            setShowMore={SetshowMoreServices}
-          />
+          {Object.keys(servicesSelected).map((key, i) => (
+            <ProductFilterBox
+              key={`${key}-${i}`}
+              type={key}
+              list={servicesSelected[key]}
+              onChange={handleOnChangeServices}
+            />
+          ))}
         </div>
         <div className="right-container">
           <div className="search-sort-container">
@@ -339,8 +232,10 @@ const ProductsPage = () => {
           </div>
           <TagChips
             statesAndSetStates={[
-              [petsSelected, handleOnChangePets],
-              [servicesSelected, handleOnChangeServices],
+              [petsSelected, handleOnChangePetTag],
+              [servicesSelected["clinic"], handleOnChangeServiceTag("clinic")],
+              [servicesSelected["service"], handleOnChangeServiceTag("service")],
+              [servicesSelected["petfriendly"], handleOnChangeServiceTag("petfriendly")],
             ]}
           />
           <div className="result-container">
@@ -351,34 +246,6 @@ const ProductsPage = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-const UpIconSvg = () => {
-  return (
-    <svg
-      width="10"
-      height="6"
-      viewBox="0 0 10 6"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M5 0L0.669872 6L9.33013 6L5 0Z" fill="#707070" />
-    </svg>
-  );
-};
-
-const DownIconSvg = () => {
-  return (
-    <svg
-      width="10"
-      height="6"
-      viewBox="0 0 10 6"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M5 6L9.33013 0H0.669873L5 6Z" fill="#707070" />
-    </svg>
   );
 };
 
