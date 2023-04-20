@@ -11,6 +11,7 @@ import ResetPasswordPage from "./components/ResetPasswordPage";
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
 import ProfilePage from "./pages/ProfilePage";
 import AddProductPage from "./pages/AddProductPage";
+import MapPage from "./pages/MapPage";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/addProduct" element={<AddProductPage />} />
           <Route path="/product/detail/:id" element={<ProductDetailPage />} />
+          <Route path="/mapView" element={<MapPage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
         <Footer />

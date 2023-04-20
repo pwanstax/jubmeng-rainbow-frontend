@@ -23,8 +23,7 @@ const Navbar = () => {
       {
         withCredentials: true,
       }
-    ); // change path to backend service
-
+    );
     window.location.assign("/");
   };
 
@@ -78,6 +77,9 @@ const Navbar = () => {
         <nav>
           <Link to="/" className="content">
             Home
+          </Link>
+          <Link to="/mapView" className="content">
+            Find On Map
           </Link>
           <Link to="/addProduct" className="content">
             Add New Merchant
