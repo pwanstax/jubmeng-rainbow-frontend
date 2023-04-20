@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import SlideBanner from "../components/SlideBanner";
 import ProductMenu from "../components/ProductMenu";
@@ -9,11 +9,20 @@ const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [pickService, setService] = useState("");
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const contents = [
-    {topic: "Popular Place", icon: "paw"},
-    {topic: "Clinic near you", icon: "dog"},
-    {topic: "Place to hang out", icon: "cat"},
+    {topic: "Popular Places", icon: "paw", sort: "highest_reviews"},
+    {topic: "New Arrival", icon: "dog", sort: "newest"},
+    {topic: "Places near you", icon: "cat", sort: "closest_location"},
   ];
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    });
+  }, []);
 
   const handleClick = (service) => {
     setShowModal(true);
@@ -39,7 +48,9 @@ const HomePage = () => {
             <ContentSlide
               topic={content.topic}
               icon={content.icon}
-              searchQuery={searchQuery}
+              searchQuery={content.sort}
+              latitude={latitude}
+              longitude={longitude}
             />
           </div>
         );

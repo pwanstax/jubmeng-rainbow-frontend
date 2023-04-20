@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const Signin = ({signin, signup}) => {
   const resetForm = {
@@ -7,12 +8,10 @@ const Signin = ({signin, signup}) => {
     password: "",
     confirmPassword: "",
   };
-
   const [form, setForm] = useState(resetForm);
-
   const [error, setError] = useState(resetForm);
-
   const [resError, setResError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const {name, value} = event.target;
@@ -74,8 +73,8 @@ const Signin = ({signin, signup}) => {
     const data = {user: {username: email.split("@")[0], email, password}};
 
     try {
-      const res = await axios.post(`http://localhost:8080/user`, data);
-      console.log(res);
+      await axios.post(`http://localhost:8080/auth/register`, data);
+      navigate(`/`);
     } catch (error) {
       console.error(error);
       handleShowResError(error.response.data.error);
@@ -93,7 +92,7 @@ const Signin = ({signin, signup}) => {
     const data = {user: {email, password}};
 
     try {
-      const res = await axios.post(`http://localhost:8080/user/login`, data, {
+      const res = await axios.post(`http://localhost:8080/auth/login`, data, {
         withCredentials: true,
       });
       sessionStorage.setItem("user_id", res.headers.user_id);
