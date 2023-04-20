@@ -12,7 +12,6 @@ export const checkLogin = async () => {
       return error;
     }
   } else {
-    // console.log("not login");
     return false;
   }
 };
