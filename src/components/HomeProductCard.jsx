@@ -1,7 +1,16 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const HomeProductCard = ({id, name, locationDescription, image, tags}) => {
+const HomeProductCard = ({
+  id,
+  name,
+  locationDescription,
+  image,
+  tags,
+  reviewCounts,
+  rating,
+  distance,
+}) => {
   const chip = {price: "$$", rating: "4.5", distance: "1.2 km"};
 
   return (
@@ -11,28 +20,29 @@ const HomeProductCard = ({id, name, locationDescription, image, tags}) => {
           <img src={image} alt="" />
           <div className="chips">
             <div className="chip">{chip.price}</div>
-            <div className="chip">
-              <i class="fa-solid fa-star"></i>
-              {chip.rating}
-            </div>
-            <div className="chip">{chip.distance}</div>
+            {reviewCounts > 0 && (
+              <div className="chip">
+                <i class="fa-solid fa-star"></i>
+                {rating.toFixed(1)}
+              </div>
+            )}
+            {distance !== null && (
+              <div className="chip">{distance.toFixed(1)} km</div>
+            )}
           </div>
         </div>
         <div className="back">
           <h3>{name}</h3>
           <div>
-            <div>
-              <i class="fa-solid fa-syringe"></i>
-              <span>Vaccination</span>
-            </div>
-            <div>
-              <i class="fa-solid fa-stethoscope"></i>
-              <span>Health Examination</span>
-            </div>
-            <div>
-              <i class="fa-solid fa-neuter"></i>
-              <span>Spay & Neuter</span>
-            </div>
+            {tags.slice(0, Math.min(3, tags.length)).map((value, index) => {
+              return (
+                <div>
+                  <i class={value.class}></i>
+                  <span>{value.name}</span>
+                </div>
+              );
+            })}
+            <div>{tags.length > 3 && <span>...</span>}</div>
           </div>
           <span>{locationDescription}</span>
         </div>
