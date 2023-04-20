@@ -43,9 +43,8 @@ const ContentSlide = ({topic, icon, searchQuery, latitude, longitude}) => {
             {topic}
           </h1>
           <div className="cards-wrap">
-            {contents.map((content, index) => {
+            {contents.length > 0 && contents.map((content, index) => {
               return (
-                // <div>{content.distance || 0}</div>
                 <HomeProductCard
                   id={content.id}
                   name={content.name}
