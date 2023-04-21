@@ -1,0 +1,10 @@
+.map-container {
+  width: 100%;
+  height: calc(100vh);
+  position: sticky;
+  top: 0;
+  i {
+    color: var(--alert-red);
+    font-size: 32px;
+  }
+}

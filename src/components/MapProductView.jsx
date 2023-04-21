@@ -136,6 +136,7 @@ const MapProductView = () => {
         });
 
         setproductList(res.data);
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }

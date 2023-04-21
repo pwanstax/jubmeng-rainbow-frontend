@@ -1,3 +1,4 @@
+import Map from "../components/Map";
 import MapProductView from "../components/MapProductView";
 
 const MapPage = () => {
@@ -6,7 +7,7 @@ const MapPage = () => {
       <div className="product-view">
         <MapProductView />
       </div>
-      <div className="map-view">map view in here</div>
+      <Map />
     </div>
   );
 };
