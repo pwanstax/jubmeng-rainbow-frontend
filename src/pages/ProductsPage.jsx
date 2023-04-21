@@ -34,18 +34,18 @@ const ProductsPage = () => {
 
   const [defaultPets, setDefaultPets] = useState({});
   const [defaultServices, setDefaultServices] = useState({});
-  const [petsSelected, setPetSelected] = useState({});
-  const [servicesSelected, setServiceSelected] = useState({});
+  const [petsSelected, setPetsSelected] = useState({});
+  const [servicesSelected, setServicesSelected] = useState({});
 
   const handleOnChangePets = (event) => {
     const {name, checked} = event.target;
-    setPetSelected({...petsSelected, [name]: checked});
+    setPetsSelected({...petsSelected, [name]: checked});
   };
 
   const handleOnChangeServices = (event) => {
     const {id, checked} = event.target;
     const [type, name] = id.split("-");
-    setServiceSelected((prevState) => ({
+    setServicesSelected((prevState) => ({
       ...prevState,
       [type]: {...prevState[type], [name]: checked},
     }));
@@ -53,12 +53,12 @@ const ProductsPage = () => {
 
   const handleOnChangePetTag = (event) => {
     const {value} = event.target;
-    setPetSelected({...petsSelected, [value]: false});
+    setPetsSelected({...petsSelected, [value]: false});
   };
-  
+
   const handleOnChangeServiceTag = (type) => (event) => {
     const {value} = event.target;
-    setServiceSelected((prevState) => ({
+    setServicesSelected((prevState) => ({
       ...prevState,
       [type]: {...prevState[type], [value]: false},
     }));
@@ -75,24 +75,11 @@ const ProductsPage = () => {
   const handleDefaultFilter = () => {
     setTextSearch("");
     setSortby("highest_rating");
-    setPetSelected(defaultPets);
-    setServiceSelected(defaultServices);
+    setPetsSelected(defaultPets);
+    setServicesSelected(defaultServices);
   };
 
   useEffect(() => {
-    const queryToState = (query, initialState) => {
-      const state = {...initialState};
-      if (searchParams.get(query) !== null) {
-        const keys = searchParams.get(query).split(",");
-        keys.forEach((key, index) => {
-          if (key in state) {
-            state[key] = true;
-          }
-        });
-      }
-      return state;
-    };
-
     const arrayToObject = (array, value) => {
       return array.reduce((a, v) => ({...a, [v]: value}), {});
     };
@@ -106,23 +93,8 @@ const ProductsPage = () => {
         Object.keys(res.data.serviceTags).map((type, i) => {
           serviceTags[type] = arrayToObject(res.data.serviceTags[type], false);
         });
-        // let serviceTags = await [
-        //   ...res.data.serviceTags["clinic"],
-        //   ...res.data.serviceTags["service"],
-        //   ...res.data.serviceTags["petfriendly"],
-        // ];
-        // serviceTags = await serviceTags.reduce(
-        //   (a, v) => ({...a, [v]: false}),
-        //   {}
-        // );
         setDefaultPets(petTags);
         setDefaultServices(serviceTags);
-        setPetSelected(queryToState("pets", petTags));
-        const initialSelected = Object.keys(serviceTags).reduce(
-          (a, v) => ({...a, [v]: queryToState(v, serviceTags[v])}),
-          {}
-        );
-        setServiceSelected(initialSelected);
       } catch (error) {
         console.log(error);
       }
@@ -131,6 +103,35 @@ const ProductsPage = () => {
     fetchTags();
     // eslint-disable-next-line
   }, []);
+
+  const queryToState = (query, initialState) => {
+    let state = {...initialState};
+    if (searchParams.get(query) !== null) {
+      const keys = searchParams.get(query).split(",");
+      keys.forEach((key, index) => {
+        if (key in state) {
+          state[key] = true;
+        }
+      });
+    }
+    return state;
+  };
+
+  useEffect(() => {
+    if (Object.keys(defaultPets).length > 0) {
+      setPetsSelected(queryToState("pets", defaultPets));
+    }
+  }, [defaultPets]);
+
+  useEffect(() => {
+    if (Object.keys(defaultServices).length > 0) {
+      const initialSelected = Object.keys(defaultServices).reduce(
+        (a, v) => ({...a, [v]: queryToState(v, defaultServices[v])}),
+        {}
+      );
+      setServicesSelected(initialSelected);
+    }
+  }, [defaultServices]);
 
   useEffect(() => {
     const objectToArray = (object) => {
@@ -141,9 +142,6 @@ const ProductsPage = () => {
       try {
         const sortBy = searchParams.get("sort");
         const petTags = objectToArray(petsSelected);
-        // const serviceTags = Object.keys(servicesSelected).filter(
-        //   (k) => servicesSelected[k] === true
-        // );
         const serviceTags = Object.keys(servicesSelected).reduce(
           (a, v) => [...a, ...objectToArray(servicesSelected[v])],
           []
@@ -166,16 +164,20 @@ const ProductsPage = () => {
       }
     };
 
-    searchParams.set("pets", objectToArray(petsSelected).join(","));
-    for (const type in servicesSelected) {
-      searchParams.set(type, objectToArray(servicesSelected[type]).join(","));
+    if (Object.keys(petsSelected).length > 0) {
+      searchParams.set("pets", objectToArray(petsSelected).join(","));
+    }
+    if (Object.keys(servicesSelected).length > 0) {
+      for (const type in servicesSelected) {
+        searchParams.set(type, objectToArray(servicesSelected[type]).join(","));
+      }
     }
     searchParams.set("search", textSearch);
     searchParams.set("sort", sortBy);
     setSearchParams(searchParams, {replace: true});
     fetchContent();
     // eslint-disable-next-line
-  }, [sortBy, petsSelected, servicesSelected, textSearch, searchParams]);
+  }, [sortBy, petsSelected, servicesSelected, textSearch]);
 
   return (
     <div className="product-page-container">
@@ -234,8 +236,14 @@ const ProductsPage = () => {
             statesAndSetStates={[
               [petsSelected, handleOnChangePetTag],
               [servicesSelected["clinic"], handleOnChangeServiceTag("clinic")],
-              [servicesSelected["service"], handleOnChangeServiceTag("service")],
-              [servicesSelected["petfriendly"], handleOnChangeServiceTag("petfriendly")],
+              [
+                servicesSelected["service"],
+                handleOnChangeServiceTag("service"),
+              ],
+              [
+                servicesSelected["petfriendly"],
+                handleOnChangeServiceTag("petfriendly"),
+              ],
             ]}
           />
           <div className="result-container">

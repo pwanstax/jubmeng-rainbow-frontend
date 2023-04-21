@@ -34,14 +34,8 @@ const ProductMenu = ({
     setAreaDropdown(false);
   });
 
-  // const handleSearchClick = () => {
-  //   setSearchQuery(document.querySelector(".product-search input").value);
-  // };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      setSearchQuery(event.target.value);
-    }
+  const handleChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   const handleOnChangePets = (event) => {
@@ -160,7 +154,7 @@ const ProductMenu = ({
         <input
           type="text"
           placeholder="Find your service.."
-          onKeyDown={handleKeyDown}
+          onChange={handleChange}
         />
       </div>
       <div className="product-menu" ref={ref}>

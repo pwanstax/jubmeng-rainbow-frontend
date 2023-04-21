@@ -44,7 +44,6 @@ const HomePage = () => {
       []
     );
     const navi = `/product?pets=${petsString}&search=${searchQuery}&sort=highest_rating&clinic=${tagsString[0]}&service=${tagsString[1]}&petfriendly=${tagsString[2]}`;
-    console.log(navi);
     navigate(navi);
   };
 
