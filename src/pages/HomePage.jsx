@@ -4,6 +4,7 @@ import SlideBanner from "../components/SlideBanner";
 import ProductMenu from "../components/ProductMenu";
 import ContentSlide from "../components/ContentSlide";
 import PetModalFilter from "../components/PetModalFilter";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,13 @@ const HomePage = () => {
     {topic: "New Arrival", icon: "dog", sort: "newest"},
     {topic: "Places near you", icon: "cat", sort: "closest_location"},
   ];
+  const [petsSelected, setPetsSelected] = useState({});
+  const [servicesSelected, setServicesSelected] = useState({});
+  const [nowProvince, setNowProvince] = useState("");
+  const [nowAmphure, setNowAmphure] = useState("");
+  const [nowTambon, setNowTambon] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -24,18 +32,38 @@ const HomePage = () => {
     });
   }, []);
 
-  const handleClick = (service) => {
-    setShowModal(true);
-    setService(service);
+  const handleSearch = () => {
+    const objectToArray = (object) => {
+      return Object.keys(object).filter((key) => object[key] === true);
+    };
+
+    const petsString = objectToArray(petsSelected).join("%2C");
+
+    const tagsString = Object.keys(servicesSelected).reduce(
+      (a, type) => [...a, objectToArray(servicesSelected[type]).join("%2C")],
+      []
+    );
+    const navi = `/product?pets=${petsString}&search=${searchQuery}&sort=highest_rating&clinic=${tagsString[0]}&service=${tagsString[1]}&petfriendly=${tagsString[2]}`;
+    navigate(navi);
   };
 
   return (
     <div className="homepage-container">
       <SlideBanner />
       <ProductMenu
-        handleClick={handleClick}
+        handleSearch={handleSearch}
         setSearchQuery={setSearchQuery}
         searchQuery={searchQuery}
+        petsSelected={petsSelected}
+        setPetsSelected={setPetsSelected}
+        servicesSelected={servicesSelected}
+        setServicesSelected={setServicesSelected}
+        nowProvince={nowProvince}
+        setNowProvince={setNowProvince}
+        nowAmphure={nowAmphure}
+        setNowAmphure={setNowAmphure}
+        nowTambon={nowTambon}
+        setNowTambon={setNowTambon}
       />
       <PetModalFilter
         pickService={pickService}
