@@ -16,9 +16,9 @@ const Map = () => {
     {id: 3, name: "C", lat: 13.75, lng: 100.54, color: "green"},
   ];
   return (
-    <div className="map-container">
+    <div className="google-map-container">
       <GoogleMapReact
-        bootstrapURLKeys={{key: "AIzaSyDw_8Tcsd7sF5DR9d47cOesNN_aRjSWRSY"}}
+        bootstrapURLKeys={{key: ""}}
         defaultCenter={center}
         defaultZoom={zoom}
         options={{
