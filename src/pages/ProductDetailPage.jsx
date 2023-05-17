@@ -34,7 +34,9 @@ const ProductDetailPage = ({name, locationDescription, image, tags}) => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/product/${id}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/product/${id}`
+        );
         setDetail(res.data);
       } catch (error) {
         console.error(error);

@@ -73,7 +73,10 @@ const Signin = ({signin, signup}) => {
     const data = {user: {username: email.split("@")[0], email, password}};
 
     try {
-      await axios.post(`http://localhost:8080/auth/register`, data);
+      await axios.post(
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/auth/register`,
+        data
+      );
       navigate(`/`);
     } catch (error) {
       console.error(error);
@@ -92,9 +95,13 @@ const Signin = ({signin, signup}) => {
     const data = {user: {email, password}};
 
     try {
-      const res = await axios.post(`http://localhost:8080/auth/login`, data, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/auth/login`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       sessionStorage.setItem("user_id", res.headers.user_id);
       sessionStorage.setItem("username", res.headers.username);
       window.location.assign("/");

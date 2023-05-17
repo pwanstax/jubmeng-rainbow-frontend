@@ -27,12 +27,16 @@ const MyProfile = ({userInfo, setUserInfo, isEdit, setIsEdit, imageFile}) => {
         formData.append("image", imageFile);
       }
 
-      await axios.patch(`http://localhost:8080/user/info`, formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.patch(
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/user/info`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       toggleIsEdit();
     } catch (error) {
       console.log(error);

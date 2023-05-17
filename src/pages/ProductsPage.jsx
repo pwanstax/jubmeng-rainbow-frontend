@@ -86,7 +86,9 @@ const ProductsPage = () => {
 
     const fetchTags = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/products/tags`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/products/tags`
+        );
 
         const petTags = arrayToObject(res.data.petTags, false);
         let serviceTags = {};
@@ -146,17 +148,20 @@ const ProductsPage = () => {
           (a, v) => [...a, ...objectToArray(servicesSelected[v])],
           []
         );
-        const res = await axios.get(`http://localhost:8080/products`, {
-          params: {
-            sort: sortBy,
-            name: textSearch,
-            petTags: encodeURIComponent(JSON.stringify(petTags)),
-            serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
-          },
-          headers: {
-            user_id: sessionStorage.getItem("user_id"),
-          },
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/products`,
+          {
+            params: {
+              sort: sortBy,
+              name: textSearch,
+              petTags: encodeURIComponent(JSON.stringify(petTags)),
+              serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
+            },
+            headers: {
+              user_id: sessionStorage.getItem("user_id"),
+            },
+          }
+        );
 
         setproductList(res.data);
       } catch (error) {

@@ -99,12 +99,16 @@ const AddProductPage = () => {
   useEffect(() => {
     const sendData = async (formData) => {
       try {
-        await axios.post("http://localhost:8080/product", formData, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        await axios.post(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/product`,
+          formData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         window.location.assign("/");
       } catch (error) {
         console.log("error", error);

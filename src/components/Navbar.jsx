@@ -16,7 +16,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     sessionStorage.clear();
     await axios.post(
-      `http://localhost:8080/auth/logout`,
+      `${process.env.REACT_APP_SERVICE_DOMAIN}/auth/logout`,
       {
         cookie_name: "auth",
       },
@@ -31,7 +31,7 @@ const Navbar = () => {
     const user_id = sessionStorage.getItem("user_id");
     try {
       await axios.patch(
-        `http://localhost:8080/user/setseller/${user_id}`,
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/user/setseller/${user_id}`,
         {
           cookie_name: "auth",
         },
@@ -50,12 +50,15 @@ const Navbar = () => {
       const result = await checkLogin();
       if (result) {
         try {
-          const res = await axios.get(`http://localhost:8080/user/navbar`, {
-            headers: {
-              user_id: sessionStorage.getItem("user_id"),
-            },
-            withCredentials: true,
-          }); // change path to backend service
+          const res = await axios.get(
+            `${process.env.REACT_APP_SERVICE_DOMAIN}/user/navbar`,
+            {
+              headers: {
+                user_id: sessionStorage.getItem("user_id"),
+              },
+              withCredentials: true,
+            }
+          ); // change path to backend service
           setNavbarInfo(res.data);
         } catch (error) {
           console.error(error);

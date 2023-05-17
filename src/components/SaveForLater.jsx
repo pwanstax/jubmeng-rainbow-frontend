@@ -8,7 +8,7 @@ const SaveForLater = () => {
     const fetchFavoriteProducts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/user/save-for-later`,
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/user/save-for-later`,
           {
             withCredentials: true,
             headers: {user_id: sessionStorage.getItem("user_id")},
