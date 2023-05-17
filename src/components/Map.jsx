@@ -1,32 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import GoogleMapReact from "google-map-react";
 
 const Marker = () => {
   const text = "A";
   const color = "red";
-  return <i className="fa-solid fa-location-dot"></i>;
+  return (
+    <i
+      className="fa-solid fa-location-dot"
+      style={{position: "absolute", transform: "translate(-50%, -100%)"}}
+    ></i>
+  );
 };
 
-const Map = () => {
-  const center = {lat: 13.75, lng: 100.53};
-  const zoom = 11;
-  const stops = [
-    {id: 1, name: "A", lat: 13.73, lng: 100.56, color: "red"},
-    {id: 2, name: "B", lat: 13.74, lng: 100.53, color: "blue"},
-    {id: 3, name: "C", lat: 13.75, lng: 100.54, color: "green"},
-  ];
+const Map = ({productList, center, setCenter}) => {
+  const [stops, setStops] = useState([]);
+  const [zoom, setZoom] = useState(11);
+
+  useEffect(() => {
+    const newStops = [];
+    productList.map((product) => {
+      const {
+        location: {
+          coordinates: [lng, lat],
+        },
+      } = product;
+      newStops.push({lat, lng});
+    });
+    setStops(newStops);
+  }, [productList]);
+
+  useEffect(() => {
+    setZoom(11 + Math.random() * 0.001);
+    console.log(zoom);
+  }, [center]);
+
   return (
     <div className="google-map-container">
       <GoogleMapReact
         bootstrapURLKeys={{key: process.env.REACT_APP_GOOGLE_MAP_API_KEY}}
-        defaultCenter={center}
-        defaultZoom={zoom}
+        center={center}
+        // defaultZoom={11}
+        zoom={zoom}
         options={{
           gestureHandling: "greedy",
         }}
       >
-        {stops.map((stop) => (
-          <Marker key={stop.id} lat={stop.lat} lng={stop.lng} />
+        {stops.map((stop, i) => (
+          <Marker key={i} lat={stop.lat} lng={stop.lng} />
         ))}
       </GoogleMapReact>
     </div>
