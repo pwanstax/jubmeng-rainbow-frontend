@@ -18,11 +18,11 @@ const Map = () => {
   return (
     <div className="google-map-container">
       <GoogleMapReact
-        bootstrapURLKeys={{key: ""}}
+        bootstrapURLKeys={{key: process.env.GOOGLE_MAP_API_KEY}}
         defaultCenter={center}
         defaultZoom={zoom}
         options={{
-            gestureHandling: "greedy"
+          gestureHandling: "greedy",
         }}
       >
         {stops.map((stop) => (
