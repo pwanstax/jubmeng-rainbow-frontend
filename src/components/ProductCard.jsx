@@ -34,7 +34,7 @@ const ProductCard = ({product, mapIcon, setCenter}) => {
     try {
       if (!saved) {
         await axios.patch(
-          `http://localhost:8080/user/save-for-later`,
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/user/save-for-later`,
           {
             productId: id,
           },
@@ -44,11 +44,14 @@ const ProductCard = ({product, mapIcon, setCenter}) => {
           }
         );
       } else {
-        await axios.delete(`http://localhost:8080/user/save-for-later`, {
-          headers: {user_id: sessionStorage.getItem("user_id")},
-          data: {productId: id},
-          withCredentials: true,
-        });
+        await axios.delete(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/user/save-for-later`,
+          {
+            headers: {user_id: sessionStorage.getItem("user_id")},
+            data: {productId: id},
+            withCredentials: true,
+          }
+        );
       }
     } catch (error) {
       console.error(error);

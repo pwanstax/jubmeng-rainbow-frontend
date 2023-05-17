@@ -92,7 +92,7 @@ const ProductDetailRatingBox = ({id, overallRating}) => {
   const fetchCarReview = async (sort) => {
     try {
       const res = await axios.get(
-        `http://localhost:8080/review/${id}?sort=${sort}`
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/review/${id}?sort=${sort}`
       ); // change path to backend service
       setReviews(res.data.reviews);
       setRatingCount(res.data.ratingCount);
@@ -127,9 +127,13 @@ const ProductDetailRatingBox = ({id, overallRating}) => {
       },
     };
     try {
-      await axios.post("http://localhost:8080/review", sendData, {
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/review`,
+        sendData,
+        {
+          withCredentials: true,
+        }
+      );
     } catch (error) {
       console.log(error);
     }

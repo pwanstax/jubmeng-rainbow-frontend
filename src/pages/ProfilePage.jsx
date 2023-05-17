@@ -26,7 +26,7 @@ const ProfilePage = () => {
   // const handleLogout = async () => {
   //   sessionStorage.clear();
   //   const res = await axios.post(
-  //     `http://localhost:8080/auth/logout`,
+  //     `${process.env.REACT_APP_SERVICE_DOMAIN}/auth/logout`,
   //     {
   //       cookie_name: "auth",
   //     },
@@ -62,7 +62,7 @@ const ProfilePage = () => {
       try {
         const id = sessionStorage.getItem("user_id");
         const res = await axios.post(
-          `http://localhost:8080/user/info`,
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/user/info`,
           {
             id: id,
           },

@@ -9,7 +9,7 @@ const MyProduct = () => {
       try {
         const username = sessionStorage.getItem("username");
         const res = await axios.get(
-          `http://localhost:8080/products/me/${username}`,
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/products/me/${username}`,
           {
             withCredentials: true,
           }

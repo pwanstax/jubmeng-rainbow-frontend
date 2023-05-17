@@ -19,7 +19,7 @@ const ForgotPasswordPage = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8080/auth/forgot-password",
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/auth/forgot-password`,
         {
           email: emailValue,
         }

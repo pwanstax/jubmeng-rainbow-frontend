@@ -17,7 +17,7 @@ const ContentSlide = ({topic, icon, searchQuery, latitude, longitude}) => {
       latestUpdateAt.current = updateAt;
       try {
         const res = await axios.get(
-          `http://localhost:8080/products/recommend/`,
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/products/recommend/`,
           {
             params: params,
           }
@@ -43,21 +43,22 @@ const ContentSlide = ({topic, icon, searchQuery, latitude, longitude}) => {
             {topic}
           </h1>
           <div className="cards-wrap">
-            {contents.length > 0 && contents.map((content, index) => {
-              return (
-                <HomeProductCard
-                  id={content.id}
-                  name={content.name}
-                  locationDescription={content.locationDescription}
-                  tags={content.tags}
-                  image={content.image}
-                  distance={content.distance || null}
-                  rating={content.rating}
-                  reviewCounts={content.reviewCounts}
-                  key={index}
-                />
-              );
-            })}
+            {contents.length > 0 &&
+              contents.map((content, index) => {
+                return (
+                  <HomeProductCard
+                    id={content.id}
+                    name={content.name}
+                    locationDescription={content.locationDescription}
+                    tags={content.tags}
+                    image={content.image}
+                    distance={content.distance || null}
+                    rating={content.rating}
+                    reviewCounts={content.reviewCounts}
+                    key={index}
+                  />
+                );
+              })}
           </div>
         </div>
       )}

@@ -16,7 +16,9 @@ const TagsAndOpenHoursForm = ({data, setData, step, setStep}) => {
   const [animals, setAnimals] = useState([]);
   const fetchContent = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/products/tags`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVICE_DOMAIN}/products/tags`
+      );
       await setServices([
         ...res.data.serviceTags["clinic"],
         ...res.data.serviceTags["service"],
