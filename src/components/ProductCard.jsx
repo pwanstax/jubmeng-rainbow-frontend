@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import RenderStars from "../utils/RenderStars";
 import axios from "axios";
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product, mapIcon, setCenter}) => {
   const {
     id,
     name,
@@ -19,6 +19,9 @@ const ProductCard = ({product}) => {
     openStatus,
     openStatusTimeDetail,
     isSaved = false,
+    location: {
+      coordinates: [lng, lat],
+    },
     image = "https://images.unsplash.com/photo-1551301657-ae4d18055505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   } = product;
 
@@ -88,6 +91,15 @@ const ProductCard = ({product}) => {
           <div className="description">
             <div className="head-line">
               <h2>{name}</h2>
+              {mapIcon && onHoverCard && (
+                <i
+                  className="fa-solid fa-location-crosshairs"
+                  onClick={(e) => {
+                    setCenter({lng: lng + Math.random() * 0.001, lat});
+                    e.preventDefault();
+                  }}
+                ></i>
+              )}
               {!saved && onHoverCard && (
                 <i className="fa-regular fa-bookmark" onClick={handleSaved}></i>
               )}

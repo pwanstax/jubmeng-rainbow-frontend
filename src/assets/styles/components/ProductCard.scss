@@ -32,9 +32,12 @@
       gap: 0.5rem;
       .head-line {
         display: flex;
-        justify-content: space-between;
+        h2 {
+          margin-right: auto;
+        }
         i {
           font-size: 1.25rem;
+          margin-left: 16px;
           color: var(--primary-cl);
         }
       }

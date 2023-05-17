@@ -3,7 +3,7 @@ import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import axios from "axios";
 
-const MapProductView = () => {
+const MapProductView = ({productList, setCenter}) => {
   const sortByOptions = {
     highest_rating: "Highest rating",
     closest_location: "Closest location",
@@ -159,12 +159,12 @@ const MapProductView = () => {
 
   return (
     <div className="product-view-container">
-      <div className="filter">FILTER</div>
+      {/* <div className="filter">FILTER</div> */}
       <div className="content">
         {productList.map((product, i) => {
           return (
             <div className="card">
-              <ProductCard product={product} key={i} />
+              <ProductCard product={product} key={i} mapIcon setCenter={setCenter} />
             </div>
           );
         })}
