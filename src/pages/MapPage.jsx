@@ -87,7 +87,9 @@ const MapPage = () => {
     };
     const fetchTags = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/products/tags`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/products/tags`
+        );
 
         const petTags = arrayToObject(res.data.petTags, false);
         let serviceTags = {};
