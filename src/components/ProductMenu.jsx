@@ -27,7 +27,15 @@ const ProductMenu = ({
   const [provinces, setProvinces] = useState([]);
   const [amphures, setAmphures] = useState([]);
   const [tambons, setTambons] = useState([]);
+  const [placeholder, setPlaceholder] = useState("Find your service..");
 
+  const handleFocus = () => {
+    setPlaceholder("");
+  };
+
+  const handleBlur = () => {
+    setPlaceholder("Find your service..");
+  };
   const ref = useOutsideClick(() => {
     setPetDropdown(false);
     setServiceDropdown(false);
@@ -155,8 +163,10 @@ const ProductMenu = ({
       <div className="product-search">
         <input
           type="text"
-          placeholder="Find your service.."
+          placeholder={placeholder}
+          onFocus={handleFocus}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
       </div>
       <div className="product-menu" ref={ref}>
