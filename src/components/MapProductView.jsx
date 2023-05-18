@@ -1,7 +1,4 @@
-import React, {useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import axios from "axios";
 
 const MapProductView = ({productList, setCenter}) => {
   return (
