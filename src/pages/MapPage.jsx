@@ -126,17 +126,20 @@ const MapPage = () => {
           (a, v) => [...a, ...objectToArray(servicesSelected[v])],
           []
         );
-        const res = await axios.get(`http://localhost:8080/products`, {
-          params: {
-            sort: sortBy,
-            name: textSearch,
-            petTags: encodeURIComponent(JSON.stringify(petTags)),
-            serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
-          },
-          headers: {
-            user_id: sessionStorage.getItem("user_id"),
-          },
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_SERVICE_DOMAIN}/products`,
+          {
+            params: {
+              sort: sortBy,
+              name: textSearch,
+              petTags: encodeURIComponent(JSON.stringify(petTags)),
+              serviceTags: encodeURIComponent(JSON.stringify(serviceTags)),
+            },
+            headers: {
+              user_id: sessionStorage.getItem("user_id"),
+            },
+          }
+        );
 
         setproductList(res.data);
         console.log(res.data);
